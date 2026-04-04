@@ -8,7 +8,7 @@ Enable `onlineMode` for Microsoft account login, which can improve compatibility
 
 ## Q2: Can I write my own plugins?
 **Yes**. Xinbot provides a complete Bukkit-style event and command system.
-See the [Plugin Development Guide](../reference/plugin-development) for details.
+See the [Plugin Development Guide](../reference/) for details.
 
 ## Q3: How can I manage multiple bots?
 You can use [xinManager](https://github.com/huangdihd/xinManager) for centralized management of multiple bots.

@@ -8,7 +8,7 @@
 
 ## Q2: 我可以编写自己的插件吗？
 **可以**。Xinbot 提供了完整的类 Bukkit 事件系统和命令系统。
-详细步骤请参考 [插件开发指南](../reference/plugin-development)。
+详细步骤请参考 [插件开发指南](../reference/)。
 
 ## Q3: 如何管理多个机器人？
 你可以使用 [xinManager](https://github.com/huangdihd/xinManager) 来实现多机器人的集中管理。
