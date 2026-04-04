@@ -370,6 +370,7 @@ h3 {
 
 @media (max-width: 960px) {
   .config-generator-container {
+    flex-direction: column; /* 强制上下堆叠 */
     gap: 1.5rem;
   }
   .form-section {
@@ -377,6 +378,7 @@ h3 {
   }
   .preview-section {
     position: static;
+    width: 100%;
   }
   .btn-group {
     flex-direction: column;
