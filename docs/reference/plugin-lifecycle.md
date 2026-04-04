@@ -19,8 +19,7 @@ Xinbot is hosted on JitPack. Add the repository and dependency to your build fil
     <dependency>
         <groupId>com.github.huangdihd</groupId>
         <artifactId>xinbot</artifactId>
-        <version>master-SNAPSHOT</version>
-        <scope>provided</scope>
+        <version>LATEST_VERSION</version> <!-- Replace LATEST_VERSION with the latest release version on GitHub -->
     </dependency>
 </dependencies>
 ```

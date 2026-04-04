@@ -20,8 +20,7 @@ Xinbot 托管在 JitPack 上。你需要将其添加到构建配置文件中。
     <dependency>
         <groupId>com.github.huangdihd</groupId>
         <artifactId>xinbot</artifactId>
-        <version>master-SNAPSHOT</version>
-        <scope>provided</scope>
+        <version>最新版本号</version> <!-- 请将其替换为 GitHub Releases 中的最新版本号 -->
     </dependency>
 </dependencies>
 ```

@@ -8,7 +8,7 @@
 前往 GitHub Releases 获取最新版本的 JAR 文件：
 [Xinbot Releases](https://github.com/huangdihd/xinbot/releases)
 
-下载名为 `xinbot-[版本号].jar` 的文件。
+下载名为 `xinbot-[最新版本号].jar` 的文件。
 
 ## 2. 安装 Java 环境
 
@@ -57,10 +57,10 @@ java -version
 
 ```bash
 # 默认使用同目录下的 config.conf
-java -jar xinbot-[版本号].jar
+java -jar xinbot-[最新版本号].jar
 
 # 或者手动指定配置文件路径
-java -jar xinbot-[版本号].jar /path/to/your/config.conf
+java -jar xinbot-[最新版本号].jar /path/to/your/config.conf
 ```
 
 ## 5. 正版登录（可选）

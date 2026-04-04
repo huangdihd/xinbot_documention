@@ -8,7 +8,7 @@ This chapter will guide you through the basic installation, configuration, and f
 Get the latest version from GitHub Releases:
 [Xinbot Releases](https://github.com/huangdihd/xinbot/releases)
 
-Download the file named `xinbot-[version].jar`.
+Download the file named `xinbot-[LATEST_VERSION].jar`.
 
 ## 2. Install Java
 
@@ -57,10 +57,10 @@ Open your terminal, navigate to the JAR's directory, and execute:
 
 ```bash
 # default config path: ./config.conf
-java -jar xinbot-[version].jar
+java -jar xinbot-[LATEST_VERSION].jar
 
 # or specify the config path manually
-java -jar xinbot-[version].jar /path/to/your/config.conf
+java -jar xinbot-[LATEST_VERSION].jar /path/to/your/config.conf
 ```
 
 ## 5. Official Login (Optional)
