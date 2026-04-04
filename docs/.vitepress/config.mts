@@ -30,9 +30,13 @@ export default defineConfig({
           ],
           '/reference/': [
             {
-              text: 'Reference',
+              text: 'Plugin Development',
               items: [
-                { text: 'Plugin Development', link: '/reference/plugin-development' }
+                { text: 'Overview', link: '/reference/' },
+                { text: 'Lifecycle', link: '/reference/plugin-lifecycle' },
+                { text: 'Event System', link: '/reference/event-system' },
+                { text: 'Command System', link: '/reference/command-system' },
+                { text: 'Packet Handling', link: '/reference/packet-handling' }
               ]
             }
           ]
@@ -63,13 +67,16 @@ export default defineConfig({
           ],
           '/zh/reference/': [
             {
-              text: '插件开发',
+              text: '插件开发参考',
               items: [
-                { text: '开发指南', link: '/zh/reference/plugin-development' }
+                { text: '开发总览', link: '/zh/reference/' },
+                { text: '生命周期与依赖', link: '/zh/reference/plugin-lifecycle' },
+                { text: '事件系统', link: '/zh/reference/event-system' },
+                { text: '命令系统', link: '/zh/reference/command-system' },
+                { text: '数据包处理', link: '/zh/reference/packet-handling' }
               ]
             }
-          ]
-        }
+          ]        }
       }
     }
   },
