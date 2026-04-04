@@ -213,7 +213,7 @@ const copyToClipboard = () => {
 
 .form-section {
   flex: 1;
-  min-width: 300px;
+  width: 100%;
   max-width: 380px;
   background: var(--vp-c-bg-soft);
   padding: 1.5rem;
@@ -223,7 +223,7 @@ const copyToClipboard = () => {
 
 .preview-section {
   flex: 3;
-  min-width: 400px;
+  width: 100%;
 }
 
 .field {
@@ -261,6 +261,7 @@ select {
   color: var(--vp-c-text-1);
   width: 100%;
   transition: border-color 0.25s;
+  box-sizing: border-box; /* 确保 padding 不撑开宽度 */
 }
 
 input:focus, select:focus {
@@ -360,16 +361,19 @@ h3 {
 }
 
 @media (max-width: 960px) {
+  .config-generator-container {
+    gap: 1.5rem;
+  }
   .form-section {
     max-width: 100%;
-  }
-  .preview-section {
-    position: static;
   }
   .btn-group {
     flex-direction: column;
     align-items: flex-end;
     gap: 0.2rem;
+  }
+  .code-block {
+    min-height: auto;
   }
 }
 </style>
