@@ -11,4 +11,4 @@
 ### 💡 开发建议
 *   **Java 版本**：建议使用 Java 17 或更高版本。
 *   **依赖管理**：推荐使用 Maven 或 Gradle 进行项目构建。
-*   **源码学习**：Xinbot 本身就是基于这套插件系统构建的，阅读 [xinManager](https://github.com/huangdihd/xinManager) 的源码是最好的进阶方式。
+*   **源码学习**：阅读 Xinbot 源码中的现有插件基础设施，或者参考官方开源插件如 [MovementSync](https://github.com/huangdihd/movementsync) 的源码是最好的进阶方式。

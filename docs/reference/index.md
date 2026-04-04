@@ -11,4 +11,4 @@ Welcome to the Xinbot Plugin Development Manual. Xinbot features a highly decoup
 ### 💡 Development Tips
 *   **Java Version**: Java 17 or newer is required.
 *   **Dependencies**: Maven or Gradle is recommended for project management.
-*   **Study Source Code**: Xinbot itself is built on this plugin system. Reading the [xinManager](https://github.com/huangdihd/xinManager) source code is the best way to learn.
+*   **Study Source Code**: Examining the existing plugin infrastructure in the Xinbot source code, or referring to official open-source plugins like [MovementSync](https://github.com/huangdihd/movementsync), is the best way to learn advanced usage.
