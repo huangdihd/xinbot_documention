@@ -1,25 +1,28 @@
 # Packet Handling
 
+Interact with the raw Minecraft protocol.
+
 ## 1. Listen to Packets
 
 ```java
-import org.geysermc.mcprotocollib.network.event.session.SessionAdapter;
-import org.geysermc.mcprotocollib.network.packet.Packet;
-import org.geysermc.mcprotocollib.network.session.Session;
-
 public class MyPacketListener extends SessionAdapter {
+    private final Plugin plugin;
+    public MyPacketListener(Plugin plugin) { this.plugin = plugin; }
+
     @Override
     public void packetReceived(Session session, Packet packet) {
-        System.out.println("Packet: " + packet.getClass().getSimpleName());
+        plugin.getLogger().debug("Packet: {}", packet.getClass().getSimpleName());
     }
 }
 ```
 
-## 2. Register
+## 2. Sending Packets (e.g., Respawn)
 
 ```java
-@Override
-public void onEnable() {
-    Bot.Instance.addPacketListener(new MyPacketListener(), this);
-}
+import org.geysermc.mcprotocollib.protocol.data.game.ClientCommand;
+import org.geysermc.mcprotocollib.protocol.packet.ingame.serverbound.ServerboundClientCommandPacket;
+
+Bot.Instance.getSession().send(new ServerboundClientCommandPacket(
+    ClientCommand.RESPAWN
+));
 ```
