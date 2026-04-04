@@ -18,7 +18,9 @@ We've developed [MovementSync](https://github.com/huangdihd/movementsync) plugin
 
 ## Q5: How to report issues or request features?
 Please open an issue on GitHub. Clear steps to reproduce are highly appreciated.
-You can also join the official developer QQ group: **434173700**.
+You can also join our community:
+- **Telegram Channel**: [@xinbot_develop](https://t.me/xinbot_develop)
+- **QQ Group**: 434173700
 
 ---
 

@@ -77,7 +77,8 @@ export default defineConfig({
   themeConfig: {
     logo: '/xinbot-logo.jpg',
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/huangdihd/xinbot' }
+      { icon: 'github', link: 'https://github.com/huangdihd/xinbot' },
+      { icon: 'telegram', link: 'https://t.me/xinbot_develop' }
     ],
     footer: {
       message: 'Released under the GPL-3.0 License.',
