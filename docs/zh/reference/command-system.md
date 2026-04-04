@@ -15,10 +15,15 @@ Xinbot 提供了几种抽象类，你可以根据需求选择：
 
 ## 2. 深入理解语法高亮 (`onHighlight`)
 
-`onHighlight` 允许你根据用户当前的输入，动态改变控制台中文字的颜色。这在提示参数错误或区分参数类型时非常有用。
+在 JLine 命令行中，当你输入字符时，控制台可以实时通过颜色或字体样式（加粗、下划线）给出反馈。`onHighlight` 方法就是专门为了处理参数部分 (`args`) 的颜色而设计的。（注意：命令名称本身已经被自动高亮了，你只需要负责高亮参数部分）。
 
 ### 渲染原理
-通过 `AttributedStringBuilder` 手动构建一个带样式的字符串。你可以为每一个 Token 分别指定颜色。
+`onHighlight` 方法要求返回一个 `AttributedString` 对象。你需要使用 `AttributedStringBuilder` 来逐个拼接参数（即 Token），并在拼接时赋予它们不同的颜色（`AttributedStyle`）。
+
+**重要提示：**
+1. `args` 是一个数组，每个元素是你输入的一个参数（按空格分割的词）。
+2. 在通过 `builder.append()` 拼接回一整句话时，**必须手动加上参数之间的空格**。
+3. `AttributedStyle.DEFAULT` 表示默认无样式，在此基础上可以调用 `.foreground()` 改变颜色，或 `.bold()` 加粗。
 
 ```java
 @Override
@@ -26,51 +31,104 @@ public AttributedString onHighlight(Command cmd, String label, String[] args) {
     AttributedStringBuilder builder = new AttributedStringBuilder();
     
     for (int i = 0; i < args.length; i++) {
-        if (i > 0) builder.append(" "); // 加上参数间的空格
+        // 除了第一个参数，其他参数前都需要补充原本被分割掉的空格
+        if (i > 0) {
+            builder.append(" ");
+        }
         
         String arg = args[i];
-        if (i == 0) {
-            // 第一个参数渲染为青色
-            builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.CYAN));
-        } else if (arg.matches("\\d+")) {
-            // 数字参数渲染为黄色
+        
+        // 逻辑：如果参数全部是数字，高亮为黄色；否则高亮为青色
+        if (arg.matches("\\d+")) {
             builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW));
         } else {
-            // 其他默认颜色
-            builder.append(arg);
+            builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.CYAN));
         }
     }
+    
+    // 返回带有样式属性的字符串对象，JLine 会负责将其渲染到终端
     return builder.toAttributedString();
 }
 ```
 
 ---
 
-## 3. 全能方案示例：`TabHighlightExecutor`
+## 3. 全能方案详解：`TabHighlightExecutor`
 
-当你需要像官方命令一样拥有丝滑的交互时，继承 `TabHighlightExecutor`。
+在绝大多数场景下，一个成熟的命令既需要 **Tab 自动补全**，也需要 **语法高亮**。`TabHighlightExecutor` 就是为了这种场景设计的“全能方案”。
+
+下面是一个更完整的例子：我们假设要写一个 `/manage <player> <ban|kick>` 命令。
+- 当用户按下 Tab 时，智能补全 `ban` 或 `kick`。
+- 当用户输入参数时，如果是 `ban` 显示为红色加粗，如果是 `kick` 显示为黄色。
 
 ```java
-public class MyComplexExecutor extends TabHighlightExecutor {
-    private final Plugin plugin;
-    public MyComplexExecutor(Plugin plugin) { this.plugin = plugin; }
+import xin.bbtt.mcbot.command.Command;
+import xin.bbtt.mcbot.command.TabHighlightExecutor;
+import org.jline.utils.AttributedString;
+import org.jline.utils.AttributedStringBuilder;
+import org.jline.utils.AttributedStyle;
+import xin.bbtt.mcbot.plugin.Plugin;
+import java.util.List;
 
+public class ManageExecutor extends TabHighlightExecutor {
+    private final Plugin plugin;
+
+    public ManageExecutor(Plugin plugin) {
+        this.plugin = plugin;
+    }
+
+    // 1. 命令实际执行的逻辑
     @Override
     public void onCommand(Command cmd, String label, String[] args) {
-        plugin.getLogger().info("收到指令，正在处理...");
+        if (args.length < 2) {
+            plugin.getLogger().warn("参数不足！");
+            return;
+        }
+        plugin.getLogger().info("对玩家 {} 执行了 {} 操作", args[0], args[1]);
     }
 
+    // 2. Tab 键补全逻辑
     @Override
     public List<String> onTabComplete(Command cmd, String label, String[] args) {
-        return List.of("sub1", "sub2"); // 实时补全建议
+        // args.length == 2 说明正在输入第二个参数，提示操作类型
+        if (args.length == 2) {
+            return List.of("ban", "kick");
+        }
+        // 返回空列表则不再提示
+        return List.of();
     }
 
+    // 3. 实时语法高亮逻辑
     @Override
     public AttributedString onHighlight(Command cmd, String label, String[] args) {
-        // 这里的逻辑会让用户在输入 sub1 时看到特定的颜色
-        return new AttributedStringBuilder()
-            .append(args[0], AttributedStyle.DEFAULT.foreground(AttributedStyle.MAGENTA))
-            .toAttributedString();
+        AttributedStringBuilder builder = new AttributedStringBuilder();
+        
+        for (int i = 0; i < args.length; i++) {
+            if (i > 0) builder.append(" ");
+            
+            String arg = args[i];
+            
+            // 第一个参数是玩家名，用蓝色
+            if (i == 0) {
+                builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.BLUE));
+            } 
+            // 第二个参数是操作，根据严重程度用不同颜色
+            else if (i == 1) {
+                if (arg.equalsIgnoreCase("ban")) {
+                    builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.RED).bold()); // 红色且加粗
+                } else if (arg.equalsIgnoreCase("kick")) {
+                    builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW));
+                } else {
+                    builder.append(arg, AttributedStyle.DEFAULT); // 未识别的操作，使用默认颜色
+                }
+            } 
+            // 多余的参数显示为红色，提示语法错误
+            else {
+                builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.RED));
+            }
+        }
+        return builder.toAttributedString();
     }
 }
 ```
+通过这种方式，你的命令就会拥有与现代命令行工具一样的高级操作体验，极大提升了用户友好度。

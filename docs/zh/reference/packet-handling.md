@@ -4,7 +4,7 @@
 
 ## 1. 监听数据包
 
-创建一个继承自 `SessionAdapter` 的类。
+创建一个继承自 `SessionAdapter` 的类。**请使用 `getLogger()` 记录日志。**
 
 ```java
 import org.geysermc.mcprotocollib.network.event.session.SessionAdapter;
@@ -14,7 +14,10 @@ import xin.bbtt.mcbot.plugin.Plugin;
 
 public class MyPacketListener extends SessionAdapter {
     private final Plugin plugin;
-    public MyPacketListener(Plugin plugin) { this.plugin = plugin; }
+
+    public MyPacketListener(Plugin plugin) {
+        this.plugin = plugin;
+    }
 
     @Override
     public void packetReceived(Session session, Packet packet) {
@@ -28,15 +31,18 @@ public class MyPacketListener extends SessionAdapter {
 
 ## 2. 发送数据包 (以重生为例)
 
-通过 Bot 实例，你可以向服务器发送自定义数据包。例如，发送一个“重生”请求。
+当你监听到特定事件或者收到数据包时，你可以通过传入的 `session` 参数（或者获取全局的 `Bot.Instance.getSession()`）向服务器发送数据包。
+
+下面是在事件回调中发送“重生”请求（`ServerboundClientCommandPacket`）的正确方式：
 
 ```java
+import org.geysermc.mcprotocollib.network.session.Session;
 import org.geysermc.mcprotocollib.protocol.data.game.ClientCommand;
 import org.geysermc.mcprotocollib.protocol.packet.ingame.serverbound.ServerboundClientCommandPacket;
-import xin.bbtt.mcbot.Bot;
 
-// 正确的重生包发送方式
-Bot.Instance.getSession().send(new ServerboundClientCommandPacket(
+// 假设这段代码在一个能获取到 session 实例的方法内
+// 比如在 packetReceived(Session session, Packet packet) 方法中：
+session.send(new ServerboundClientCommandPacket(
     ClientCommand.RESPAWN
 ));
 ```
