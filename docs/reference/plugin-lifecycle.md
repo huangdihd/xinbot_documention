@@ -79,3 +79,11 @@ Xinbot uses Java SPI to discover plugins. Create a file in your resources:
     ```text
     com.example.plugin.MyPlugin
     ```
+
+---
+
+## 4. Packaging & Testing
+1. Use `mvn package` to build your project into a JAR file.
+2. Place the generated JAR in the Xinbot `plugin` directory.
+3. Start Xinbot. If you see `[PluginManager] Loaded plugin ...` in the console, your plugin is working!
+

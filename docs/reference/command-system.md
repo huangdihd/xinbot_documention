@@ -13,9 +13,12 @@ Xinbot provides specialized abstract classes for different command needs:
 
 ---
 
-## 2. Syntax Highlighting (`onHighlight`)
+## 2. Deep Dive: Syntax Highlighting (`onHighlight`)
 
-`onHighlight` allows you to change console text colors in real-time as the user types.
+`onHighlight` allows you to change console text colors in real-time as the user types. This is useful for providing instant feedback on argument validity.
+
+### How it Works
+Use `AttributedStringBuilder` to build a styled string token by token.
 
 ```java
 @Override
@@ -23,14 +26,18 @@ public AttributedString onHighlight(Command cmd, String label, String[] args) {
     AttributedStringBuilder builder = new AttributedStringBuilder();
     
     for (int i = 0; i < args.length; i++) {
-        if (i > 0) builder.append(" ");
+        if (i > 0) builder.append(" "); // Add spaces between arguments
         
         String arg = args[i];
-        if (arg.matches("\\d+")) {
+        if (i == 0) {
+            // Render the first argument in Cyan
+            builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.CYAN));
+        } else if (arg.matches("\\d+")) {
             // Render numeric arguments in Yellow
             builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW));
         } else {
-            builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.CYAN));
+            // Default styling
+            builder.append(arg);
         }
     }
     return builder.toAttributedString();

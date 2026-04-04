@@ -12,10 +12,13 @@ import org.geysermc.mcprotocollib.network.packet.Packet;
 import org.geysermc.mcprotocollib.network.session.Session;
 
 public class MyPacketListener extends SessionAdapter {
+    private final Plugin plugin;
+    public MyPacketListener(Plugin plugin) { this.plugin = plugin; }
+
     @Override
     public void packetReceived(Session session, Packet packet) {
         // Log received packet names for debugging
-        plugin.getLogger().debug("Packet: {}", packet.getClass().getSimpleName());
+        plugin.getLogger().debug("Received: {}", packet.getClass().getSimpleName());
     }
 }
 ```
@@ -32,4 +35,17 @@ import org.geysermc.mcprotocollib.protocol.packet.ingame.serverbound.Serverbound
 Bot.Instance.getSession().send(new ServerboundClientCommandPacket(
     ClientCommand.RESPAWN
 ));
+```
+
+---
+
+## 3. Registering the Listener
+
+Register the listener in your plugin's `onEnable()` hook:
+
+```java
+@Override
+public void onEnable() {
+    Bot.Instance.addPacketListener(new MyPacketListener(this), this);
+}
 ```
