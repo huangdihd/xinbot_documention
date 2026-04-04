@@ -224,8 +224,6 @@ const copyToClipboard = () => {
 .preview-section {
   flex: 3;
   min-width: 400px;
-  position: sticky;
-  top: 100px;
 }
 
 .field {
