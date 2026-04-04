@@ -14,7 +14,7 @@ export default defineConfig({
         nav: [
           { text: 'Home', link: '/' },
           { text: 'Guide', link: '/guide/getting-started' },
-          { text: 'Reference', link: '/reference/plugin-development' }
+          { text: 'Reference', link: '/reference/' }
         ],
         sidebar: {
           '/guide/': [
@@ -51,7 +51,7 @@ export default defineConfig({
         nav: [
           { text: '首页', link: '/zh/' },
           { text: '指南', link: '/zh/guide/getting-started' },
-          { text: '插件开发', link: '/zh/reference/plugin-development' }
+          { text: '插件开发', link: '/zh/reference/' }
         ],
         sidebar: {
           '/zh/guide/': [
