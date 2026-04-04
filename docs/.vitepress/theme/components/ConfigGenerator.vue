@@ -17,6 +17,7 @@ const t = computed(() => {
     passwordHint: isZh ? '离线模式下必填' : 'Required for offline mode',
     owner: isZh ? '主人名称' : 'Owner Name',
     ownerPlaceholder: prefix + 'huangdihd',
+    enableTranslation: isZh ? '启用翻译' : 'Enable Translation',
     plugin: isZh ? '2. 插件设置' : '2. Plugin Settings',
     pluginDir: isZh ? '插件目录' : 'Plugin Directory',
     pluginDirPlaceholder: prefix + 'plugin',
@@ -40,7 +41,7 @@ const config = reactive({
   onlineMode: false,
   password: '',
   owner: '',
-  enableTranslation: true,
+  enableTranslation: true, // 默认开启
   plugin: {
     directory: 'plugin'
   },
@@ -56,7 +57,6 @@ const config = reactive({
 // 校验逻辑
 const isValid = computed(() => {
   const hasName = config.name.trim() !== ''
-  // owner 设为可选，不再检查
   const passwordValid = config.onlineMode || config.password.trim() !== ''
   const proxyValid = !config.proxy.enable || config.proxy.address.trim() !== ''
   return hasName && passwordValid && proxyValid
@@ -143,6 +143,10 @@ const copyToClipboard = () => {
       <div class="field">
         <label>{{ t.owner }}{{ t.optional }}</label>
         <input v-model="config.owner" type="text" :placeholder="t.ownerPlaceholder" />
+      </div>
+      <div class="field checkbox">
+        <input v-model="config.enableTranslation" type="checkbox" id="enableTranslation" />
+        <label for="enableTranslation">{{ t.enableTranslation }}</label>
       </div>
 
       <h3>{{ t.plugin }}</h3>
