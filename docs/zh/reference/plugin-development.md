@@ -170,44 +170,75 @@ public void onEnable() {
 
 ## 5. 创建命令
 
-### 5.1 基础命令（无 Tab 补全）
+在 Xinbot 中，你可以通过继承 `Command` 类并实现 `CommandExecutor` 接口来创建自定义指令。
 
-创建命令类：
+### 5.1 基础命令
+
+创建命令定义：
 ```java
 import xin.bbtt.mcbot.command.Command;
 
 public class MyCommand extends Command {
     @Override
     public String getName() {
-        return "mycommand";
+        return "mycommand"; // 命令名称
     }
 
     @Override
     public String[] getAliases() {
-        return new String[]{"mc"};
-    }
-
-    @Override
-    public String getDescription() {
-        return "My custom command";
-    }
-
-    @Override
-    public String getUsage() {
-        return "mycommand <arg>";
+        return new String[]{"mc"}; // 别名
     }
 }
 ```
 
-在 `onEnable()` 中注册命令：
+创建执行器并注册：
+```java
+import xin.bbtt.mcbot.command.CommandExecutor;
+
+public class MyExecutor extends CommandExecutor {
+    @Override
+    public void onCommand(Command command, String label, String[] args) {
+        System.out.println("Hello from MyCommand!");
+    }
+}
+
+// 在插件 onEnable 中注册
+Bot.Instance.getPluginManager().registerCommand(new MyCommand(), new MyExecutor(), this);
+```
+
+### 5.2 Tab 补全
+
+通过重写 `onTabComplete` 提供命令提示：
+
 ```java
 @Override
-public void onEnable() {
-    Bot.Instance.getPluginManager().registerCommand(
-        new MyCommand(),
-        new MyCommandExecutor(),
-        this
-    );
+public List<String> onTabComplete(Command cmd, String label, String[] args) {
+    if (args.length == 1) {
+        return List.of("option1", "option2");
+    }
+    return List.of();
+}
+```
+
+### 5.3 实时语法高亮
+
+通过重写 `onHighlight` 方法，你可以根据用户输入的参数实时改变控制台文字颜色。
+
+```java
+import org.jline.utils.AttributedString;
+import org.jline.utils.AttributedStringBuilder;
+import org.jline.utils.AttributedStyle;
+
+@Override
+public AttributedString onHighlight(Command cmd, String label, String[] args) {
+    AttributedStringBuilder builder = new AttributedStringBuilder();
+    for (int i = 0; i < args.length; i++) {
+        if (i > 0) builder.append(" ");
+        
+        // 示例：将第一个参数渲染为绿色
+        builder.append(args[i], AttributedStyle.DEFAULT.foreground(AttributedStyle.GREEN));
+    }
+    return builder.toAttributedString();
 }
 ```
 

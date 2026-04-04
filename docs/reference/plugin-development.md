@@ -18,30 +18,12 @@ Add JitPack repository to your `pom.xml`:
 </repositories>
 ```
 
-Add Xinbot dependency:
-```xml
-<dependencies>
-    <dependency>
-        <groupId>com.github.huangdihd</groupId>
-        <artifactId>xinbot</artifactId>
-        <version>VERSION</version> <!-- Replace with latest version -->
-    </dependency>
-</dependencies>
-```
-
 ### Gradle
 
 Add JitPack repository to your `build.gradle`:
 ```groovy
 repositories {
     maven { url 'https://jitpack.io' }
-}
-```
-
-Add Xinbot dependency:
-```groovy
-dependencies {
-    implementation 'com.github.huangdihd:xinbot:VERSION' // Replace with latest version
 }
 ```
 
@@ -67,30 +49,22 @@ public class MyPlugin implements Plugin {
     }
 
     @Override
-    public void onLoad() {
-        // Called when plugin is loaded
-    }
+    public void onLoad() {}
     
     @Override
-    public void onUnload() {
-        // Called when plugin is unloaded
-    }
+    public void onUnload() {}
 
     @Override
     public void onEnable() {
-        // Called when plugin is enabled
+        // Register events and commands here
     }
 
     @Override
-    public void onDisable() {
-        // Called when plugin is disabled
-    }
+    public void onDisable() {}
 }
 ```
 
 ## 3. Registering Packet Listeners
-
-Packet listeners handle incoming and outgoing network packets:
 
 ```java
 import org.geysermc.mcprotocollib.network.event.session.SessionAdapter;
@@ -113,41 +87,29 @@ public void onEnable() {
 
 ## 4. Registering Event Listeners
 
-Event listeners respond to internal bot events.
-
-### 4.1 Create an Event Listener Class
-
-Implement the `Listener` interface and use the `@EventHandler` annotation:
-
 ```java
 import xin.bbtt.mcbot.event.Listener;
 import xin.bbtt.mcbot.event.EventHandler;
-import xin.bbtt.mcbot.event.EventPriority;
 import xin.bbtt.mcbot.events.SystemChatMessageEvent;
 
 public class MyEventListener implements Listener {
-
-    @EventHandler(priority = EventPriority.NORMAL)
+    @EventHandler
     public void onSystemChatMessage(SystemChatMessageEvent event) {
-        System.out.println("Received system message: " + event.getText());
+        System.out.println("Received message: " + event.getText());
     }
 }
-```
 
-### 4.2 Register the Listener
-
-```java
-@Override
-public void onEnable() {
-    Bot.Instance.getPluginManager().registerEvents(new MyEventListener(), this);
-}
+// Register in onEnable()
+Bot.Instance.getPluginManager().registerEvents(new MyEventListener(), this);
 ```
 
 ## 5. Creating Commands
 
+In Xinbot, you can create custom commands by extending the `Command` class and implementing `CommandExecutor`.
+
 ### 5.1 Basic Command
 
-Create a command class:
+Define the command:
 ```java
 import xin.bbtt.mcbot.command.Command;
 
@@ -156,28 +118,67 @@ public class MyCommand extends Command {
     public String getName() {
         return "mycommand";
     }
+
+    @Override
+    public String[] getAliases() {
+        return new String[]{"mc"};
+    }
 }
 ```
 
-Register in `onEnable()`:
+Create an executor and register:
+```java
+import xin.bbtt.mcbot.command.CommandExecutor;
+
+public class MyExecutor extends CommandExecutor {
+    @Override
+    public void onCommand(Command command, String label, String[] args) {
+        System.out.println("Hello from MyCommand!");
+    }
+}
+
+// Register in plugin's onEnable
+Bot.Instance.getPluginManager().registerCommand(new MyCommand(), new MyExecutor(), this);
+```
+
+### 5.2 Tab Completion
+
+Override `onTabComplete` to provide suggestions:
+
 ```java
 @Override
-public void onEnable() {
-    Bot.Instance.getPluginManager().registerCommand(
-        new MyCommand(),
-        new MyCommandExecutor(),
-        this
-    );
+public List<String> onTabComplete(Command cmd, String label, String[] args) {
+    if (args.length == 1) {
+        return List.of("option1", "option2");
+    }
+    return List.of();
+}
+```
+
+### 5.3 Real-time Syntax Highlighting
+
+Override `onHighlight` to customize colors in the console:
+
+```java
+import org.jline.utils.AttributedString;
+import org.jline.utils.AttributedStringBuilder;
+import org.jline.utils.AttributedStyle;
+
+@Override
+public AttributedString onHighlight(Command cmd, String label, String[] args) {
+    AttributedStringBuilder builder = new AttributedStringBuilder();
+    for (int i = 0; i < args.length; i++) {
+        if (i > 0) builder.append(" ");
+        
+        // Example: Render the first argument in Green
+        builder.append(args[i], AttributedStyle.DEFAULT.foreground(AttributedStyle.GREEN));
+    }
+    return builder.toAttributedString();
 }
 ```
 
 ## 6. Packaging and Deployment
 
-1. Create directory `src/main/resources/META-INF/services`.
-2. Create a file named `xin.bbtt.mcbot.plugin.Plugin`.
-3. Add your main plugin class name to the file (e.g., `com.yourpackage.MyPlugin`).
-4. Package as JAR and place in the `plugin` directory.
-
-## 7. License Notes
-
-Plugins linked with Xinbot (GPL-3.0) and distributed as derivative works must be released under a GPL-3.0-compatible license.
+1. Create `src/main/resources/META-INF/services/xin.bbtt.mcbot.plugin.Plugin`.
+2. Add your main plugin class name to that file.
+3. Package as JAR and place in the `plugin` directory.

@@ -1,5 +1,7 @@
 # Getting Started
 
+<AsciinemaPlayer />
+
 This chapter will guide you through the basic installation, configuration, and first run of Xinbot.
 
 ## 1. Download
