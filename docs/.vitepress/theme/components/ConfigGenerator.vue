@@ -56,10 +56,10 @@ const config = reactive({
 // 校验逻辑
 const isValid = computed(() => {
   const hasName = config.name.trim() !== ''
-  const hasOwner = config.owner.trim() !== ''
+  // owner 设为可选，不再检查
   const passwordValid = config.onlineMode || config.password.trim() !== ''
   const proxyValid = !config.proxy.enable || config.proxy.address.trim() !== ''
-  return hasName && hasOwner && passwordValid && proxyValid
+  return hasName && passwordValid && proxyValid
 })
 
 // 生成用于预览的配置（隐藏密码）
@@ -141,7 +141,7 @@ const copyToClipboard = () => {
         <input v-model="config.password" type="password" :placeholder="t.passwordHint" />
       </div>
       <div class="field">
-        <label>{{ t.owner }} <span class="req">*</span></label>
+        <label>{{ t.owner }}{{ t.optional }}</label>
         <input v-model="config.owner" type="text" :placeholder="t.ownerPlaceholder" />
       </div>
 
@@ -213,7 +213,7 @@ const copyToClipboard = () => {
 
 .form-section {
   flex: 1;
-  width: 100%;
+  min-width: 300px;
   max-width: 380px;
   background: var(--vp-c-bg-soft);
   padding: 1.5rem;
@@ -223,7 +223,9 @@ const copyToClipboard = () => {
 
 .preview-section {
   flex: 3;
-  width: 100%;
+  min-width: 400px;
+  position: sticky;
+  top: 100px;
 }
 
 .field {
@@ -261,7 +263,7 @@ select {
   color: var(--vp-c-text-1);
   width: 100%;
   transition: border-color 0.25s;
-  box-sizing: border-box; /* 确保 padding 不撑开宽度 */
+  box-sizing: border-box;
 }
 
 input:focus, select:focus {
@@ -366,6 +368,9 @@ h3 {
   }
   .form-section {
     max-width: 100%;
+  }
+  .preview-section {
+    position: static;
   }
   .btn-group {
     flex-direction: column;
