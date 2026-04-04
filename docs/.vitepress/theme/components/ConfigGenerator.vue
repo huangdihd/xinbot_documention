@@ -217,17 +217,19 @@ const copyToClipboard = () => {
 
 .form-section {
   flex: 1;
-  min-width: 300px;
+  width: 100%;
   max-width: 380px;
   background: var(--vp-c-bg-soft);
   padding: 1.5rem;
   border-radius: 8px;
   border: 1px solid var(--vp-c-divider);
+  min-width: 0; /* 允许 flex 项目缩小到 0 */
 }
 
 .preview-section {
   flex: 3;
-  min-width: 400px;
+  width: 100%;
+  min-width: 0; /* 允许 flex 项目缩小到 0 */
   position: sticky;
   top: 100px;
 }
