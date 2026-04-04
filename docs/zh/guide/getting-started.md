@@ -1,6 +1,5 @@
 # 快速开始
 
-<AsciinemaPlayer />
 
 本章节将引导你完成 Xinbot 的基础安装、配置和首次运行。
 
