@@ -103,7 +103,7 @@ public AttributedStyle[] onHighlight(Command cmd, String label, String[] args) {
 ```
 
 #### Option B: Using `Utils` (Recommended)
-The `Utils` class provides functional helpers to reduce boilerplate.
+The `Utils` class provides functional helpers to reduce boilerplate. Using it is highly recommended as it automatically handles array instantiation and safely manages edge cases like empty arguments, preventing common errors such as `ArrayIndexOutOfBoundsException`.
 
 ```java
 @Override

@@ -103,7 +103,7 @@ public AttributedStyle[] onHighlight(Command cmd, String label, String[] args) {
 ```
 
 #### 方式 B：使用 `Utils`（推荐）
-`Utils` 类提供了函数式辅助方法来减少样板代码。
+`Utils` 类提供了函数式辅助方法来减少样板代码。强烈建议使用这种方式，因为它不仅能自动处理数组的初始化，还能安全地处理参数为空等边界情况，有效避免 `ArrayIndexOutOfBoundsException` 等常见错误。
 
 ```java
 @Override
