@@ -4,25 +4,22 @@
 
 ## 1. 创建监听器
 
-要监听事件，你需要创建一个实现 `xin.bbtt.mcbot.event.Listener` 接口的类。**强烈建议使用插件内置的 `getLogger()` 来记录信息。**
+要监听事件，你需要创建一个实现 `xin.bbtt.mcbot.event.Listener` 接口的类。**强烈建议使用 SLF4J `Logger` 来记录信息。**
 
 ```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import xin.bbtt.mcbot.event.Listener;
 import xin.bbtt.mcbot.event.EventHandler;
 import xin.bbtt.mcbot.events.PublicChatEvent;
-import xin.bbtt.mcbot.plugin.Plugin;
 
 public class MyChatListener implements Listener {
-    private final Plugin plugin;
-
-    public MyChatListener(Plugin plugin) {
-        this.plugin = plugin;
-    }
+    private static final Logger log = LoggerFactory.getLogger(MyChatListener.class);
 
     @EventHandler
     public void onPublicChat(PublicChatEvent event) {
-        // 使用 getLogger() 而不是 System.out，这样日志会带有插件前缀
-        plugin.getLogger().info("[聊天] {}: {}", event.getSender(), event.getMessage());
+        // 使用 log 而不是 System.out
+        log.info("[聊天] {}: {}", event.getSender(), event.getMessage());
     }
 }
 ```

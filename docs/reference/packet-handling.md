@@ -4,25 +4,22 @@ Interact with the raw Minecraft protocol to implement advanced features.
 
 ## 1. Listen to Packets
 
-Create a class that extends `SessionAdapter`. **Please use `getLogger()` to log information.**
+Create a class that extends `SessionAdapter`. **Please use SLF4J `Logger` to log information.**
 
 ```java
 import org.geysermc.mcprotocollib.network.event.session.SessionAdapter;
 import org.geysermc.mcprotocollib.network.packet.Packet;
 import org.geysermc.mcprotocollib.network.session.Session;
-import xin.bbtt.mcbot.plugin.Plugin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MyPacketListener extends SessionAdapter {
-    private final Plugin plugin;
-
-    public MyPacketListener(Plugin plugin) {
-        this.plugin = plugin;
-    }
+    private static final Logger log = LoggerFactory.getLogger(MyPacketListener.class);
 
     @Override
     public void packetReceived(Session session, Packet packet) {
         // Log received packet names for debugging
-        plugin.getLogger().debug("Received: {}", packet.getClass().getSimpleName());
+        log.debug("Received: {}", packet.getClass().getSimpleName());
     }
 }
 ```
@@ -56,6 +53,6 @@ Register the listener in your plugin's `onEnable()` hook:
 ```java
 @Override
 public void onEnable() {
-    Bot.Instance.addPacketListener(new MyPacketListener(this), this);
+    Bot.Instance.addPacketListener(new MyPacketListener(), this);
 }
 ```

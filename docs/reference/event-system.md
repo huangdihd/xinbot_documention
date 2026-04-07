@@ -4,23 +4,23 @@ Events are the soul of the Xinbot plugin system. By listening to different event
 
 ## 1. Create a Listener
 
-Implement the `xin.bbtt.mcbot.event.Listener` interface. **Using the built-in `getLogger()` is highly recommended.**
+Implement the `xin.bbtt.mcbot.event.Listener` interface. **Using SLF4J `Logger` is highly recommended.**
 
 ```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import xin.bbtt.mcbot.event.Listener;
 import xin.bbtt.mcbot.event.EventHandler;
 import xin.bbtt.mcbot.event.EventPriority;
 import xin.bbtt.mcbot.events.PublicChatEvent;
-import xin.bbtt.mcbot.plugin.Plugin;
 
 public class MyChatListener implements Listener {
-    private final Plugin plugin;
-    public MyChatListener(Plugin plugin) { this.plugin = plugin; }
+    private static final Logger log = LoggerFactory.getLogger(MyChatListener.class);
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPublicChat(PublicChatEvent event) {
-        // Use getLogger() instead of System.out for proper formatting
-        plugin.getLogger().info("[Chat] {}: {}", event.getSender(), event.getMessage());
+        // Use log instead of System.out for proper formatting
+        log.info("[Chat] {}: {}", event.getSender(), event.getMessage());
     }
 }
 ```

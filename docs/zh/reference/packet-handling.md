@@ -4,25 +4,22 @@
 
 ## 1. 监听数据包
 
-创建一个继承自 `SessionAdapter` 的类。**请使用 `getLogger()` 记录日志。**
+创建一个继承自 `SessionAdapter` 的类。**请使用 SLF4J `Logger` 记录日志。**
 
 ```java
 import org.geysermc.mcprotocollib.network.event.session.SessionAdapter;
 import org.geysermc.mcprotocollib.network.packet.Packet;
 import org.geysermc.mcprotocollib.network.session.Session;
-import xin.bbtt.mcbot.plugin.Plugin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MyPacketListener extends SessionAdapter {
-    private final Plugin plugin;
-
-    public MyPacketListener(Plugin plugin) {
-        this.plugin = plugin;
-    }
+    private static final Logger log = LoggerFactory.getLogger(MyPacketListener.class);
 
     @Override
     public void packetReceived(Session session, Packet packet) {
         // 使用日志记录收到的包名
-        plugin.getLogger().debug("收到包: {}", packet.getClass().getSimpleName());
+        log.debug("收到包: {}", packet.getClass().getSimpleName());
     }
 }
 ```
@@ -56,6 +53,6 @@ session.send(new ServerboundClientCommandPacket(
 ```java
 @Override
 public void onEnable() {
-    Bot.Instance.addPacketListener(new MyPacketListener(this), this);
+    Bot.Instance.addPacketListener(new MyPacketListener(), this);
 }
 ```

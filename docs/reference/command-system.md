@@ -2,133 +2,134 @@
 
 Xinbot features a powerful JLine-based console system with advanced visual feedback.
 
-## 1. Executor Types
+## 1. Executor Overview
 
-Xinbot provides specialized abstract classes for different command needs:
+Xinbot provides several abstract classes to handle different command requirements. All executors inherit from the base `CommandExecutor`.
 
-*   **`CommandExecutor`**: Basic execution logic only.
-*   **`TabExecutor`**: Execution + Tab completion.
-*   **`HighlightExecutor`**: Execution + Real-time syntax highlighting.
-*   **`TabHighlightExecutor`**: **All-in-one solution**. Supports both completion and highlighting.
-
----
-
-## 2. Deep Dive: Syntax Highlighting (`onHighlight`)
-
-In the JLine console, the text can provide real-time feedback through colors and font styles (e.g., bold, underline) as you type. The `onHighlight` method is specifically designed to handle the styling of the arguments part (`args`). (Note: The command name itself is highlighted automatically, so you only need to highlight the arguments).
-
-### Rendering Mechanism
-The `onHighlight` method requires an `AttributedString` object in return. You use the `AttributedStringBuilder` to append arguments (tokens) one by one, applying different colors (`AttributedStyle`) as you append them.
-
-**Important Notes:**
-1. `args` is an array where each element represents an argument (words split by spaces).
-2. When appending the arguments back into a single sentence using `builder.append()`, **you must manually add spaces between the arguments**.
-3. `AttributedStyle.DEFAULT` means no styling by default. From there, you can call `.foreground()` to change colors, or `.bold()` for bold text.
-
-```java
-@Override
-public AttributedString onHighlight(Command cmd, String label, String[] args) {
-    AttributedStringBuilder builder = new AttributedStringBuilder();
-    
-    for (int i = 0; i < args.length; i++) {
-        // Add spaces before arguments (except the first one)
-        if (i > 0) {
-            builder.append(" ");
-        }
-        
-        String arg = args[i];
-        
-        // Logic: highlight all-digit arguments in Yellow, others in Cyan
-        if (arg.matches("\\d+")) {
-            builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW));
-        } else {
-            builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.CYAN));
-        }
-    }
-    
-    // Return the styled string. JLine will render it to the terminal.
-    return builder.toAttributedString();
-}
-```
+| Class | Purpose | Methods to Implement |
+| :--- | :--- | :--- |
+| `CommandExecutor` | Basic command logic | `onCommand` |
+| `TabExecutor` | Adds tab completion | `onCommand`, `onTabComplete` |
+| `HighlightExecutor` | Adds syntax highlighting | `onCommand`, `onHighlight` |
+| `TabHighlightExecutor` | Full-featured command | `onCommand`, `onTabComplete`, `onHighlight` |
+| `SubCommandExecutor` | Command with sub-commands | `registerSubCommand` |
 
 ---
 
-## 3. All-in-One Solution: `TabHighlightExecutor`
+## 2. Implementing Standard Executors
 
-In most cases, a mature command needs both **Tab Completion** and **Syntax Highlighting**. `TabHighlightExecutor` is designed exactly for this scenario.
+For most commands, you will use `TabHighlightExecutor` to provide the best user experience.
 
-Here is a more comprehensive example: suppose we are creating a `/manage <player> <ban|kick>` command.
-- When the user presses Tab, suggest `ban` or `kick`.
-- When the user types the arguments: if it's `ban`, show it in bold red; if it's `kick`, show it in yellow.
-
+### Example: A Simple "Hello" Command
 ```java
-import xin.bbtt.mcbot.command.Command;
-import xin.bbtt.mcbot.command.TabHighlightExecutor;
-import org.jline.utils.AttributedString;
-import org.jline.utils.AttributedStringBuilder;
-import org.jline.utils.AttributedStyle;
-import xin.bbtt.mcbot.plugin.Plugin;
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class ManageExecutor extends TabHighlightExecutor {
-    private final Plugin plugin;
+public class HelloExecutor extends TabHighlightExecutor {
+    private static final Logger log = LoggerFactory.getLogger(HelloExecutor.class);
 
-    public ManageExecutor(Plugin plugin) {
-        this.plugin = plugin;
-    }
-
-    // 1. Command execution logic
     @Override
     public void onCommand(Command cmd, String label, String[] args) {
-        if (args.length < 2) {
-            plugin.getLogger().warn("Not enough arguments!");
-            return;
-        }
-        plugin.getLogger().info("Performed {} action on player {}", args[1], args[0]);
+        log.info("Hello, {}!", args.length > 0 ? args[0] : "world");
     }
 
-    // 2. Tab completion logic
     @Override
     public List<String> onTabComplete(Command cmd, String label, String[] args) {
-        // args.length == 2 means the user is typing the second argument
-        if (args.length == 2) {
-            return List.of("ban", "kick");
+        if (args.length == 1) {
+            return List.of("Alice", "Bob", "Charlie");
         }
-        // Return empty list to stop suggesting
         return List.of();
     }
 
-    // 3. Real-time syntax highlighting logic
     @Override
-    public AttributedString onHighlight(Command cmd, String label, String[] args) {
-        AttributedStringBuilder builder = new AttributedStringBuilder();
-        
-        for (int i = 0; i < args.length; i++) {
-            if (i > 0) builder.append(" ");
-            
-            String arg = args[i];
-            
-            // First argument is player name, color it Blue
-            if (i == 0) {
-                builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.BLUE));
-            } 
-            // Second argument is the action, color based on severity
-            else if (i == 1) {
-                if (arg.equalsIgnoreCase("ban")) {
-                    builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.RED).bold()); // Red and Bold
-                } else if (arg.equalsIgnoreCase("kick")) {
-                    builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW));
-                } else {
-                    builder.append(arg, AttributedStyle.DEFAULT); // Unrecognized action, default color
-                }
-            } 
-            // Extra arguments are syntax errors, color them Red
-            else {
-                builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.RED));
-            }
-        }
-        return builder.toAttributedString();
+    public AttributedStyle[] onHighlight(Command cmd, String label, String[] args) {
+        return Utils.parseHighlight(args); // Use default highlighting
     }
 }
 ```
-Using this approach, your command will provide an advanced user experience similar to modern CLI tools (like zsh or fish).
+
+---
+
+## 3. The Sub-Command System (`SubCommandExecutor`)
+
+`SubCommandExecutor` is a specialized class designed to manage commands that have multiple sub-actions (e.g., `/mycmd add`, `/mycmd remove`). It automatically handles routing, tab completion for sub-command names, and basic highlighting.
+
+### Registering Sub-Commands
+You register sub-commands within the constructor or an initialization block. Each sub-command is itself a `CommandExecutor`.
+
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class MyMainCommand extends SubCommandExecutor {
+    private static final Logger log = LoggerFactory.getLogger(MyMainCommand.class);
+
+    public MyMainCommand() {
+        // Automatically routes "/test add" to AddExecutor
+        registerSubCommand("add", new AddExecutor());
+        registerSubCommand("remove", new RemoveExecutor());
+    }
+
+    @Override
+    protected void onNoSubCommand(Command command, String label) {
+        // Logic when the user types just the main command
+        log.warn("Usage: /{} <add|remove>", label);
+    }
+}
+```
+
+---
+
+## 4. Syntax Highlighting (`onHighlight`)
+
+Xinbot uses an `AttributedStyle[]` array to define the color and style of each argument. The array length must match the `args` length.
+
+### Implementation Examples
+
+#### Option A: Manual Implementation
+```java
+@Override
+public AttributedStyle[] onHighlight(Command cmd, String label, String[] args) {
+    AttributedStyle[] styles = new AttributedStyle[args.length];
+    for (int i = 0; i < args.length; i++) {
+        if (args[i].matches("\\d+")) {
+            styles[i] = AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW);
+        } else {
+            styles[i] = AttributedStyle.DEFAULT.foreground(AttributedStyle.CYAN);
+        }
+    }
+    return styles;
+}
+```
+
+#### Option B: Using `Utils` (Recommended)
+The `Utils` class provides functional helpers to reduce boilerplate.
+
+```java
+@Override
+public AttributedStyle[] onHighlight(Command cmd, String label, String[] args) {
+    return Utils.parseConditionalHighlight(
+        args, 
+        arg -> arg.matches("\\d+"), 
+        AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW), 
+        AttributedStyle.DEFAULT.foreground(AttributedStyle.CYAN)
+    );
+}
+```
+
+---
+
+## 5. Tab Completion (`onTabComplete`)
+
+Return a `List<String>` of suggestions. Xinbot will automatically filter these suggestions based on what the user has already typed.
+
+```java
+@Override
+public List<String> onTabComplete(Command cmd, String label, String[] args) {
+    // args.length indicates which argument position the user is currently typing
+    if (args.length == 1) {
+        return List.of("red", "blue", "green");
+    }
+    return List.of();
+}
+```

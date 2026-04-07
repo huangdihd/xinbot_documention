@@ -2,133 +2,135 @@
 
 Xinbot 的命令行系统深度集成了 JLine，支持极佳的视觉反馈。
 
-## 1. 核心概念：执行器 (Executor)
+## 1. 执行器概述
 
-Xinbot 提供了几种抽象类，你可以根据需求选择：
+Xinbot 提供了几种抽象类来满足不同的命令需求。所有执行器最终都继承自 `CommandExecutor`。
 
-*   **`CommandExecutor`**: 仅执行逻辑。
-*   **`TabExecutor`**: 执行 + Tab 补全。
-*   **`HighlightExecutor`**: 执行 + 实时语法高亮。
-*   **`TabHighlightExecutor`**: **全能方案**。同时支持补全与高亮，是开发复杂指令的首选。
-
----
-
-## 2. 深入理解语法高亮 (`onHighlight`)
-
-在 JLine 命令行中，当你输入字符时，控制台可以实时通过颜色或字体样式（加粗、下划线）给出反馈。`onHighlight` 方法就是专门为了处理参数部分 (`args`) 的颜色而设计的。（注意：命令名称本身已经被自动高亮了，你只需要负责高亮参数部分）。
-
-### 渲染原理
-`onHighlight` 方法要求返回一个 `AttributedString` 对象。你需要使用 `AttributedStringBuilder` 来逐个拼接参数（即 Token），并在拼接时赋予它们不同的颜色（`AttributedStyle`）。
-
-**重要提示：**
-1. `args` 是一个数组，每个元素是你输入的一个参数（按空格分割的词）。
-2. 在通过 `builder.append()` 拼接回一整句话时，**必须手动加上参数之间的空格**。
-3. `AttributedStyle.DEFAULT` 表示默认无样式，在此基础上可以调用 `.foreground()` 改变颜色，或 `.bold()` 加粗。
-
-```java
-@Override
-public AttributedString onHighlight(Command cmd, String label, String[] args) {
-    AttributedStringBuilder builder = new AttributedStringBuilder();
-    
-    for (int i = 0; i < args.length; i++) {
-        // 除了第一个参数，其他参数前都需要补充原本被分割掉的空格
-        if (i > 0) {
-            builder.append(" ");
-        }
-        
-        String arg = args[i];
-        
-        // 逻辑：如果参数全部是数字，高亮为黄色；否则高亮为青色
-        if (arg.matches("\\d+")) {
-            builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW));
-        } else {
-            builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.CYAN));
-        }
-    }
-    
-    // 返回带有样式属性的字符串对象，JLine 会负责将其渲染到终端
-    return builder.toAttributedString();
-}
-```
+| 类名 | 用途 | 需要实现的方法 |
+| :--- | :--- | :--- |
+| `CommandExecutor` | 基础命令逻辑 | `onCommand` |
+| `TabExecutor` | 添加 Tab 补全 | `onCommand`, `onTabComplete` |
+| `HighlightExecutor` | 添加语法高亮 | `onCommand`, `onHighlight` |
+| `TabHighlightExecutor` | 全功能命令 | `onCommand`, `onTabComplete`, `onHighlight` |
+| `SubCommandExecutor` | 带有子命令的复杂指令 | `registerSubCommand` |
 
 ---
 
-## 3. 全能方案详解：`TabHighlightExecutor`
+## 2. 实现基础执行器
 
-在绝大多数场景下，一个成熟的命令既需要 **Tab 自动补全**，也需要 **语法高亮**。`TabHighlightExecutor` 就是为了这种场景设计的“全能方案”。
+对于大多数命令，建议使用 `TabHighlightExecutor` 以提供最佳的用户体验。
 
-下面是一个更完整的例子：我们假设要写一个 `/manage <player> <ban|kick>` 命令。
-- 当用户按下 Tab 时，智能补全 `ban` 或 `kick`。
-- 当用户输入参数时，如果是 `ban` 显示为红色加粗，如果是 `kick` 显示为黄色。
-
+### 示例：简单的 "Hello" 命令
 ```java
-import xin.bbtt.mcbot.command.Command;
-import xin.bbtt.mcbot.command.TabHighlightExecutor;
-import org.jline.utils.AttributedString;
-import org.jline.utils.AttributedStringBuilder;
-import org.jline.utils.AttributedStyle;
-import xin.bbtt.mcbot.plugin.Plugin;
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class ManageExecutor extends TabHighlightExecutor {
-    private final Plugin plugin;
+public class HelloExecutor extends TabHighlightExecutor {
+    private static final Logger log = LoggerFactory.getLogger(HelloExecutor.class);
 
-    public ManageExecutor(Plugin plugin) {
-        this.plugin = plugin;
-    }
-
-    // 1. 命令实际执行的逻辑
     @Override
     public void onCommand(Command cmd, String label, String[] args) {
-        if (args.length < 2) {
-            plugin.getLogger().warn("参数不足！");
-            return;
-        }
-        plugin.getLogger().info("对玩家 {} 执行了 {} 操作", args[0], args[1]);
+        log.info("你好, {}!", args.length > 0 ? args[0] : "世界");
     }
 
-    // 2. Tab 键补全逻辑
     @Override
     public List<String> onTabComplete(Command cmd, String label, String[] args) {
-        // args.length == 2 说明正在输入第二个参数，提示操作类型
-        if (args.length == 2) {
-            return List.of("ban", "kick");
+        if (args.length == 1) {
+            return List.of("Alice", "Bob", "Charlie");
         }
-        // 返回空列表则不再提示
         return List.of();
     }
 
-    // 3. 实时语法高亮逻辑
     @Override
-    public AttributedString onHighlight(Command cmd, String label, String[] args) {
-        AttributedStringBuilder builder = new AttributedStringBuilder();
-        
-        for (int i = 0; i < args.length; i++) {
-            if (i > 0) builder.append(" ");
-            
-            String arg = args[i];
-            
-            // 第一个参数是玩家名，用蓝色
-            if (i == 0) {
-                builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.BLUE));
-            } 
-            // 第二个参数是操作，根据严重程度用不同颜色
-            else if (i == 1) {
-                if (arg.equalsIgnoreCase("ban")) {
-                    builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.RED).bold()); // 红色且加粗
-                } else if (arg.equalsIgnoreCase("kick")) {
-                    builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW));
-                } else {
-                    builder.append(arg, AttributedStyle.DEFAULT); // 未识别的操作，使用默认颜色
-                }
-            } 
-            // 多余的参数显示为红色，提示语法错误
-            else {
-                builder.append(arg, AttributedStyle.DEFAULT.foreground(AttributedStyle.RED));
-            }
-        }
-        return builder.toAttributedString();
+    public AttributedStyle[] onHighlight(Command cmd, String label, String[] args) {
+        return Utils.parseHighlight(args); // 使用默认高亮
     }
 }
 ```
-通过这种方式，你的命令就会拥有与现代命令行工具一样的高级操作体验，极大提升了用户友好度。
+
+---
+
+## 3. 子命令系统 (`SubCommandExecutor`)
+
+`SubCommandExecutor` 是专门为具有多个子动作（例如 `/mycmd add`, `/mycmd remove`）的命令设计的。它会自动处理分发逻辑、子命令名称的补全以及基础高亮。
+
+### 注册子命令
+通常在构造函数或初始化块中注册子命令。每个子命令本身也是一个 `CommandExecutor`。
+
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class MyMainCommand extends SubCommandExecutor {
+    private static final Logger log = LoggerFactory.getLogger(MyMainCommand.class);
+
+    public MyMainCommand() {
+        // 自动将 "/test add" 路由给 AddExecutor
+        registerSubCommand("add", new AddExecutor());
+        registerSubCommand("remove", new RemoveExecutor());
+    }
+
+    @Override
+    protected void onNoSubCommand(Command command, String label) {
+        // 当用户只输入主命令时的逻辑
+        log.warn("用法: /{} <add|remove>", label);
+    }
+}
+```
+
+---
+
+## 4. 深入理解语法高亮 (`onHighlight`)
+
+Xinbot 使用 `AttributedStyle[]` 数组来定义每个参数的颜色和样式。数组的长度必须与 `args` 的长度一致。
+
+### 代码示例
+
+#### 方式 A：手动实现
+```java
+@Override
+public AttributedStyle[] onHighlight(Command cmd, String label, String[] args) {
+    AttributedStyle[] styles = new AttributedStyle[args.length];
+    for (int i = 0; i < args.length; i++) {
+        if (args[i].matches("\\d+")) {
+            styles[i] = AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW);
+        } else {
+            styles[i] = AttributedStyle.DEFAULT.foreground(AttributedStyle.CYAN);
+        }
+    }
+    return styles;
+}
+```
+
+#### 方式 B：使用 `Utils`（推荐）
+`Utils` 类提供了函数式辅助方法来减少样板代码。
+
+```java
+@Override
+public AttributedStyle[] onHighlight(Command cmd, String label, String[] args) {
+    // 使用函数式写法实现相同的逻辑
+    return Utils.parseConditionalHighlight(
+        args, 
+        arg -> arg.matches("\\d+"), 
+        AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW), 
+        AttributedStyle.DEFAULT.foreground(AttributedStyle.CYAN)
+    );
+}
+```
+
+---
+
+## 5. Tab 自动补全 (`onTabComplete`)
+
+返回一个 `List<String>` 建议列表。Xinbot 会根据用户已经输入的字符自动过滤这些建议。
+
+```java
+@Override
+public List<String> onTabComplete(Command cmd, String label, String[] args) {
+    // args.length 表示用户当前正在输入第几个参数
+    if (args.length == 1) {
+        return List.of("red", "blue", "green");
+    }
+    return List.of();
+}
+```
