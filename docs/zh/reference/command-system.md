@@ -78,6 +78,33 @@ public class MyMainCommand extends SubCommandExecutor {
 }
 ```
 
+### 嵌套子命令
+由于 `SubCommandExecutor` 本身也是一个 `CommandExecutor`，你可以通过将一个 `SubCommandExecutor` 注册为另一个子命令来实现深层嵌套的命令结构。
+
+```java
+public class MyMainCommand extends SubCommandExecutor {
+    public MyMainCommand() {
+        // 例如：/mycmd manage ...
+        registerSubCommand("manage", new ManageSubCommand());
+    }
+    // ...
+}
+
+public class ManageSubCommand extends SubCommandExecutor {
+    public ManageSubCommand() {
+        // 例如：/mycmd manage users
+        registerSubCommand("users", new ManageUsersExecutor());
+        // 例如：/mycmd manage groups
+        registerSubCommand("groups", new ManageGroupsExecutor());
+    }
+
+    @Override
+    protected void onNoSubCommand(Command command, String label) {
+        // 未提供完整嵌套命令时的逻辑
+    }
+}
+```
+
 ---
 
 ## 4. 深入理解语法高亮 (`onHighlight`)

@@ -78,6 +78,33 @@ public class MyMainCommand extends SubCommandExecutor {
 }
 ```
 
+### Nesting Sub-Commands
+Since `SubCommandExecutor` is itself a `CommandExecutor`, you can create deeply nested command structures simply by registering a `SubCommandExecutor` as a sub-command.
+
+```java
+public class MyMainCommand extends SubCommandExecutor {
+    public MyMainCommand() {
+        // e.g., /mycmd manage ...
+        registerSubCommand("manage", new ManageSubCommand());
+    }
+    // ...
+}
+
+public class ManageSubCommand extends SubCommandExecutor {
+    public ManageSubCommand() {
+        // e.g., /mycmd manage users
+        registerSubCommand("users", new ManageUsersExecutor());
+        // e.g., /mycmd manage groups
+        registerSubCommand("groups", new ManageGroupsExecutor());
+    }
+    
+    @Override
+    protected void onNoSubCommand(Command command, String label) {
+        // Logic for incomplete nested command
+    }
+}
+```
+
 ---
 
 ## 4. Syntax Highlighting (`onHighlight`)
