@@ -35,6 +35,7 @@ java -version
         "password" : ""                 // 2b2t.xin 密码
     },
     "enableTranslation" : true,         // 是否加载语言文件（开启将占用更多内存）
+    "reconnectTimeout" : 5000,          // 重连超时时间 (ms)
     "owner" : "[Owner name]",           // 机器人的主人名称（管理员）
     "plugin" : {
         "directory" : "plugin"          // 插件目录

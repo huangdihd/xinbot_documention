@@ -35,6 +35,7 @@ Don't want to write HOCON manually? Use our [**Configuration Generator**](./conf
         "password" : ""                 // Bot's password in 2b2t.xin
     },
     "enableTranslation" : true,         // Language file loading (higher memory usage)
+    "reconnectTimeout" : 5000,          // Reconnection timeout (ms)
     "owner" : "[Owner name]",           // Bot owner's name
     "plugin" : {
         "directory" : "plugin"          // Plugin directory

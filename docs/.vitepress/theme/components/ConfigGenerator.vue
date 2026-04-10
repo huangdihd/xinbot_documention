@@ -18,6 +18,7 @@ const t = computed(() => {
     owner: isZh ? '主人名称' : 'Owner Name',
     ownerPlaceholder: prefix + 'huangdihd',
     enableTranslation: isZh ? '启用翻译' : 'Enable Translation',
+    reconnectTimeout: isZh ? '重连超时 (ms)' : 'Reconnect Timeout (ms)',
     plugin: isZh ? '2. 插件设置' : '2. Plugin Settings',
     pluginDir: isZh ? '插件目录' : 'Plugin Directory',
     pluginDirPlaceholder: prefix + 'plugin',
@@ -42,6 +43,7 @@ const config = reactive({
   password: '',
   owner: '',
   enableTranslation: true, // 默认开启
+  reconnectTimeout: 5000,
   plugin: {
     directory: 'plugin'
   },
@@ -59,7 +61,8 @@ const isValid = computed(() => {
   const hasName = config.name.trim() !== ''
   const passwordValid = config.onlineMode || config.password.trim() !== ''
   const proxyValid = !config.proxy.enable || config.proxy.address.trim() !== ''
-  return hasName && passwordValid && proxyValid
+  const timeoutValid = config.reconnectTimeout >= 0
+  return hasName && passwordValid && proxyValid && timeoutValid
 })
 
 // 生成用于预览的配置（隐藏密码）
@@ -73,6 +76,7 @@ const previewConfig = computed(() => {
         "password" : "${mask(config.password)}"
     },
     "enableTranslation" : ${config.enableTranslation},
+    "reconnectTimeout" : ${config.reconnectTimeout},
     "owner" : "${config.owner}",
     "plugin" : {
         "directory" : "${config.plugin.directory}"
@@ -99,6 +103,7 @@ const realConfig = computed(() => {
         "password" : "${config.password}"
     },
     "enableTranslation" : ${config.enableTranslation},
+    "reconnectTimeout" : ${config.reconnectTimeout},
     "owner" : "${config.owner}",
     "plugin" : {
         "directory" : "${config.plugin.directory}"
@@ -147,6 +152,10 @@ const copyToClipboard = () => {
       <div class="field checkbox">
         <input v-model="config.enableTranslation" type="checkbox" id="enableTranslation" />
         <label for="enableTranslation">{{ t.enableTranslation }}</label>
+      </div>
+      <div class="field">
+        <label>{{ t.reconnectTimeout }}</label>
+        <input v-model.number="config.reconnectTimeout" type="number" step="1000" min="0" />
       </div>
 
       <h3>{{ t.plugin }}</h3>
@@ -261,6 +270,7 @@ label {
 
 input[type="text"],
 input[type="password"],
+input[type="number"],
 select {
   padding: 0.6rem;
   border-radius: 4px;
