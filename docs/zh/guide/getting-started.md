@@ -36,6 +36,7 @@ java -version
     },
     "enableTranslation" : true,         // 是否加载语言文件（开启将占用更多内存）
     "reconnectTimeout" : 5000,          // 重连超时时间 (ms)
+    "reconnectDelay" : 3000,            // 重连延迟时间 (ms)
     "owner" : "[Owner name]",           // 机器人的主人名称（管理员）
     "plugin" : {
         "directory" : "plugin"          // 插件目录

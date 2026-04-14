@@ -19,6 +19,7 @@ const t = computed(() => {
     ownerPlaceholder: prefix + 'huangdihd',
     enableTranslation: isZh ? '启用翻译' : 'Enable Translation',
     reconnectTimeout: isZh ? '重连超时 (ms)' : 'Reconnect Timeout (ms)',
+    reconnectDelay: isZh ? '重连延迟 (ms)' : 'Reconnect Delay (ms)',
     plugin: isZh ? '2. 插件设置' : '2. Plugin Settings',
     pluginDir: isZh ? '插件目录' : 'Plugin Directory',
     pluginDirPlaceholder: prefix + 'plugin',
@@ -44,6 +45,7 @@ const config = reactive({
   owner: '',
   enableTranslation: true, // 默认开启
   reconnectTimeout: 5000,
+  reconnectDelay: 3000,
   plugin: {
     directory: 'plugin'
   },
@@ -62,7 +64,8 @@ const isValid = computed(() => {
   const passwordValid = config.onlineMode || config.password.trim() !== ''
   const proxyValid = !config.proxy.enable || config.proxy.address.trim() !== ''
   const timeoutValid = config.reconnectTimeout >= 0
-  return hasName && passwordValid && proxyValid && timeoutValid
+  const delayValid = config.reconnectDelay >= 0
+  return hasName && passwordValid && proxyValid && timeoutValid && delayValid
 })
 
 // 生成用于预览的配置（隐藏密码）
@@ -77,6 +80,7 @@ const previewConfig = computed(() => {
     },
     "enableTranslation" : ${config.enableTranslation},
     "reconnectTimeout" : ${config.reconnectTimeout},
+    "reconnectDelay" : ${config.reconnectDelay},
     "owner" : "${config.owner}",
     "plugin" : {
         "directory" : "${config.plugin.directory}"
@@ -104,6 +108,7 @@ const realConfig = computed(() => {
     },
     "enableTranslation" : ${config.enableTranslation},
     "reconnectTimeout" : ${config.reconnectTimeout},
+    "reconnectDelay" : ${config.reconnectDelay},
     "owner" : "${config.owner}",
     "plugin" : {
         "directory" : "${config.plugin.directory}"
@@ -156,6 +161,10 @@ const copyToClipboard = () => {
       <div class="field">
         <label>{{ t.reconnectTimeout }}</label>
         <input v-model.number="config.reconnectTimeout" type="number" step="1000" min="0" />
+      </div>
+      <div class="field">
+        <label>{{ t.reconnectDelay }}</label>
+        <input v-model.number="config.reconnectDelay" type="number" step="1000" min="0" />
       </div>
 
       <h3>{{ t.plugin }}</h3>
