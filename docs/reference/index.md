@@ -7,6 +7,7 @@ Welcome to the Xinbot Plugin Development Manual. Xinbot features a highly decoup
 - **[Event System](./event-system)**: Listen to 20+ built-in events including chat, login, and player updates.
 - **[Command System](./command-system)**: Add custom console commands with tab completion and real-time highlighting.
 - **[Packet Handling](./packet-handling)**: Go low-level and handle raw Minecraft protocol packets.
+- **[Language System](./lang-system)**: Implement multi-language support and internationalization for your plugin.
 
 ### 💡 Development Tips
 *   **Java Version**: Java 17 or newer is required.

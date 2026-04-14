@@ -36,7 +36,8 @@ export default defineConfig({
                 { text: 'Lifecycle', link: '/reference/plugin-lifecycle' },
                 { text: 'Event System', link: '/reference/event-system' },
                 { text: 'Command System', link: '/reference/command-system' },
-                { text: 'Packet Handling', link: '/reference/packet-handling' }
+                { text: 'Packet Handling', link: '/reference/packet-handling' },
+                { text: 'Language System', link: '/reference/lang-system' }
               ]
             }
           ]
@@ -73,7 +74,8 @@ export default defineConfig({
                 { text: '生命周期与依赖', link: '/zh/reference/plugin-lifecycle' },
                 { text: '事件系统', link: '/zh/reference/event-system' },
                 { text: '命令系统', link: '/zh/reference/command-system' },
-                { text: '数据包处理', link: '/zh/reference/packet-handling' }
+                { text: '数据包处理', link: '/zh/reference/packet-handling' },
+                { text: '语言系统', link: '/zh/reference/lang-system' }
               ]
             }
           ]        }
