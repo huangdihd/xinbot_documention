@@ -71,4 +71,18 @@ If `onlineMode` is set to `true` and `fullSession` is null, the console will sho
 
 ---
 
+## 6. Language Settings
+
+Xinbot automatically detects your language based on your system environment. If you need to manually force a specific language, you can add JVM parameters at startup:
+
+```bash
+# Force Simplified Chinese
+java -Duser.language=zh -Duser.country=CN -jar xinbot-[VERSION].jar
+
+# Force English
+java -Duser.language=en -Duser.country=US -jar xinbot-[VERSION].jar
+```
+
+---
+
 Next, you can check the [Usage Guide](./usage) to learn how to control your bot.

@@ -71,4 +71,18 @@ java -jar xinbot-[最新版本号].jar /path/to/your/config.conf
 
 ---
 
+## 6. 语言设置
+
+Xinbot 会根据你的系统环境自动检测语言。如果你需要手动强制指定界面语言，可以在启动时添加 JVM 参数：
+
+```bash
+# 强制使用简体中文
+java -Duser.language=zh -Duser.country=CN -jar xinbot-[版本号].jar
+
+# 强制使用英文
+java -Duser.language=en -Duser.country=US -jar xinbot-[版本号].jar
+```
+
+---
+
 接下来，你可以查看 [使用手册](./usage) 学习如何控制机器人。

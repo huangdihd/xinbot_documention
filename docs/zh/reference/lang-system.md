@@ -57,3 +57,14 @@ public void onEnable() {
 
 ## 4. 外部语言文件覆盖
 Xinbot 支持用户通过在程序根目录创建 `lang/` 文件夹并放入同名 `.lang` 文件来覆盖默认翻译。`LangManager` 会在启动时自动加载这些外部文件。
+
+## 5. 强制指定运行语言
+如果需要忽略系统默认语言，可以在启动时通过 JVM 参数强制指定：
+```bash
+# 使用简体中文运行
+java -Duser.language=zh -Duser.country=CN -jar xinbot.jar
+
+# 使用英文运行
+java -Duser.language=en -Duser.country=US -jar xinbot.jar
+```
+

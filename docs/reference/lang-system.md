@@ -57,3 +57,13 @@ public void onEnable() {
 
 ## 4. External Language Overrides
 Xinbot allows users to override default translations by creating a `lang/` folder in the root directory and placing corresponding `.lang` files there. `LangManager` loads these external files automatically on startup.
+
+## 5. Overriding the Running Language
+To ignore the default system language and force a specific language, you can use the following JVM parameters at startup:
+```bash
+# Force Simplified Chinese
+java -Duser.language=zh -Duser.country=CN -jar xinbot.jar
+
+# Force English
+java -Duser.language=en -Duser.country=US -jar xinbot.jar
+```
