@@ -22,7 +22,7 @@ Xinbot commands can be executed directly in the console (case-insensitive).
 
 | Command | Aliases | Usage | Description |
 | :--- | :--- | :--- | :--- |
-| `help` | - | `help [command]` | Shows help information. |
+| `help` | - | `help [command]` | Shows help information, including sub-commands. |
 | `say` | `chat` | `say <message>` | Sends a message to the public chat. |
 | `command` | `cmd` | `cmd <command>` | Sends a command to the server (e.g., `cmd home`). |
 | `pm` | `PluginManager` | `pm <sub-command>` | Manages plugins (load, unload, reload, etc.). |

@@ -27,11 +27,12 @@ String hello = LangManager.get("myplugin.hello", "PlayerName");
 - `zh_cn.lang` (简体中文)
 
 ### 文件格式 (.lang)
-使用 `key=value` 格式，支持 `#` 开头的注释：
+使用 `key=value` 格式，支持 `#` 开头的注释。你还可以在值中使用 `\n` 表示换行，使用 `\t` 表示制表符（Tab）：
 ```lang
 # 这是一条注释
 myplugin.welcome=欢迎使用我的插件！
 myplugin.hello=你好, %s!
+myplugin.multiline=第一行\n第二行\t带有缩进
 ```
 
 ### 初始化语言加载

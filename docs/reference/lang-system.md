@@ -27,11 +27,12 @@ Create language files in your plugin's resources directory (`src/main/resources`
 - `zh_cn.lang` (Simplified Chinese)
 
 ### File Format (.lang)
-Use the `key=value` format. Comments starting with `#` are supported:
+Use the `key=value` format. Comments starting with `#` are supported. You can also use `\n` for newlines and `\t` for tabs within your values:
 ```lang
 # This is a comment
 myplugin.welcome=Welcome to my plugin!
 myplugin.hello=Hello, %s!
+myplugin.multiline=Line 1\nLine 2\tIndented
 ```
 
 ### Initializing Language Loading
