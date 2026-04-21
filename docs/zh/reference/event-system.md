@@ -33,7 +33,6 @@ public class MyChatListener implements Listener {
 | `PublicChatEvent` | 收到公屏消息 | `getSender()`, `getMessage()` |
 | `LoginSuccessEvent` | 成功登录 | - |
 | `ReceivePacketEvent` | 收到原始数据包 | `getPacket()` |
-| `AnswerQuestionEvent` | 需回答服务器问题 | `getQuestion()`, `setAnswer()` |
 
 ---
 

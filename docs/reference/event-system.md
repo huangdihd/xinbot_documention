@@ -34,7 +34,6 @@ public class MyChatListener implements Listener {
 | `PublicChatEvent` | Public chat message received | `getSender()`, `getMessage()` |
 | `LoginSuccessEvent` | Successfully logged into the server | - |
 | `ReceivePacketEvent` | Raw network packet received | `getPacket()` |
-| `AnswerQuestionEvent` | Server asks a question (Captcha) | `getQuestion()`, `setAnswer()` |
 
 ---
 

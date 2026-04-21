@@ -22,7 +22,7 @@ String hello = LangManager.get("myplugin.hello", "PlayerName");
 You can include `.lang` files in your plugin to support multiple languages.
 
 ### File Structure
-Create language files in your plugin's resources directory (`src/main/resources`):
+Create language files in your plugin's resources under the `lang` directory (`src/main/resources/lang/`):
 - `en_us.lang` (Default fallback)
 - `zh_cn.lang` (Simplified Chinese)
 

@@ -71,16 +71,24 @@ public class MyPlugin implements Plugin {
 
 ---
 
-## 3. 插件描述文件 (SPI)
+## 3. 插件描述文件 (plugin.yml)
 
-Xinbot 使用 Java 的 SPI 机制来发现插件。你必须在资源目录下创建描述文件：
+Xinbot 现已使用 `plugin.yml` 文件来发现插件并管理依赖。请在资源目录下创建该文件 (`src/main/resources/plugin.yml`)：
 
-1.  在 `src/main/resources` 下创建目录：`META-INF/services/`
-2.  创建文件，文件名为：`xin.bbtt.mcbot.plugin.Plugin`
-3.  文件内容仅需一行，即你的**插件主类全限定名**：
-    ```text
-    com.example.plugin.MyPlugin
-    ```
+```yaml
+name: MyPlugin
+main: com.example.plugin.MyPlugin
+version: 1.0.0
+# depend: [OtherPluginName] # 可选：此插件所依赖的其他插件名称列表
+# type: PLUGIN              # 可选：META_PLUGIN 用于处理服务器底层逻辑的元插件
+```
+
+### 支持的字段
+*   **`name`**: (必填) 你的插件名称。
+*   **`main`**: (必填) 你的插件主类全限定名。
+*   **`version`**: (可选) 你的插件版本，默认为 `1.0.0`。
+*   **`depend`**: (可选) 字符串或字符串列表，表示必须在此插件之前加载的依赖插件名称。
+*   **`type`**: (可选) 定义插件类型 (`PLUGIN` 或 `META_PLUGIN`)。普通插件应忽略此项或填为 `PLUGIN`。
 
 ---
 

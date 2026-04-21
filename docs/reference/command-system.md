@@ -107,7 +107,7 @@ public class ManageSubCommand extends SubCommandExecutor {
 
 ---
 
-## 4. Syntax Highlighting (`onHighlight`)
+## 5. Syntax Highlighting (`onHighlight`)
 
 Xinbot uses an `AttributedStyle[]` array to define the color and style of each argument. The array length must match the `args` length.
 
@@ -146,7 +146,7 @@ public AttributedStyle[] onHighlight(Command cmd, String label, String[] args) {
 
 ---
 
-## 5. Tab Completion (`onTabComplete`)
+## 6. Tab Completion (`onTabComplete`)
 
 Return a `List<String>` of suggestions. Xinbot will automatically filter these suggestions based on what the user has already typed.
 

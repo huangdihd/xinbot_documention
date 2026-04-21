@@ -13,7 +13,7 @@ const t = computed(() => {
     botName: isZh ? '机器人名称' : 'Bot Name',
     botNamePlaceholder: prefix + 'Xinbot',
     onlineMode: isZh ? '正版登录' : 'Online Mode',
-    password: isZh ? '服务器密码' : 'Server Password',
+    password: isZh ? '服务器登录密码' : 'Server Login Password',
     passwordHint: isZh ? '离线模式下必填' : 'Required for offline mode',
     owner: isZh ? '主人名称' : 'Owner Name',
     ownerPlaceholder: prefix + 'huangdihd',

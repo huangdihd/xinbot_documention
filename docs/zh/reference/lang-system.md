@@ -22,7 +22,7 @@ String hello = LangManager.get("myplugin.hello", "PlayerName");
 你可以为你的插件添加自己的 `.lang` 语言文件，以便支持多语言。
 
 ### 文件结构
-在你的插件资源目录 (`src/main/resources`) 下创建语言文件：
+在你的插件资源目录下的 `lang` 文件夹中 (`src/main/resources/lang/`) 创建语言文件：
 - `en_us.lang` (默认回退语言)
 - `zh_cn.lang` (简体中文)
 

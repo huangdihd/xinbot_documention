@@ -69,15 +69,24 @@ public class MyPlugin implements Plugin {
 
 ---
 
-## 3. Plugin SPI File
+## 3. Plugin Descriptor (plugin.yml)
 
-Xinbot uses Java SPI to discover plugins. Create a file in your resources:
+Xinbot uses a `plugin.yml` file to discover plugins and manage their dependencies. Create a `plugin.yml` file in your resources folder (`src/main/resources/plugin.yml`):
 
-1.  Path: `src/main/resources/META-INF/services/xin.bbtt.mcbot.plugin.Plugin`
-2.  Content: The **fully qualified name** of your main class:
-    ```text
-    com.example.plugin.MyPlugin
-    ```
+```yaml
+name: MyPlugin
+main: com.example.plugin.MyPlugin
+version: 1.0.0
+# depend: [OtherPluginName] # Optional: list of plugin names this plugin depends on
+# type: PLUGIN              # Optional: use META_PLUGIN for meta-plugins handling server logic
+```
+
+### Supported Fields
+*   **`name`**: (Required) The name of your plugin.
+*   **`main`**: (Required) The fully qualified name of your main class.
+*   **`version`**: (Optional) The version of your plugin. Defaults to `1.0.0`.
+*   **`depend`**: (Optional) A string or list of strings representing the names of plugins that must be loaded before this one.
+*   **`type`**: (Optional) Defines the plugin type (`PLUGIN` or `META_PLUGIN`). Ordinary plugins should omit this or set it to `PLUGIN`.
 
 ---
 

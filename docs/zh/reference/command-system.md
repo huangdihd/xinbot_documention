@@ -50,7 +50,29 @@ public class HelloExecutor extends TabHighlightExecutor {
 
 ---
 
-## 3. 子命令系统 (`SubCommandExecutor`)
+## 3. 注册命令 (`commands.yml`)
+
+从 Xinbot 2.0.0 开始，命令采用声明式的方式通过插件的 `src/main/resources/commands.yml` 文件进行注册。Xinbot 会在加载插件时自动解析该文件、实例化执行器，并将它们绑定为命令。
+
+### `commands.yml` 示例
+```yaml
+hello:
+  description: "向世界打个招呼"
+  usage: "hello [名字]"
+  aliases: ["hi", "greet"]
+  executor: "com.example.plugin.HelloExecutor"
+```
+
+### 支持的属性
+*   `[命令名]` (如 `hello`): 用户在控制台输入的名称 (例如 `/hello`)。
+*   **`executor`**: (必填) 该命令所对应的 `CommandExecutor` 实现类的全限定名。该类必须包含一个无参的公共构造函数。
+*   **`description`**: (可选) 命令的功能简述，在 `/help` 中显示。支持使用 `.lang` 文件中的 i18n 键。
+*   **`usage`**: (可选) 说明如何使用该命令（如 `hello <name>`）。支持使用 i18n 键。
+*   **`aliases`**: (可选) 命令的别名列表（如 `["hi", "greet"]`），如果只有一个别名也可以直接写成字符串。
+
+---
+
+## 4. 子命令系统 (`SubCommandExecutor`)
 
 `SubCommandExecutor` 是专门为具有多个子动作（例如 `/mycmd add`, `/mycmd remove`）的命令设计的。它会自动处理分发逻辑、子命令名称的补全以及基础高亮。
 
@@ -107,7 +129,7 @@ public class ManageSubCommand extends SubCommandExecutor {
 
 ---
 
-## 4. 深入理解语法高亮 (`onHighlight`)
+## 5. 深入理解语法高亮 (`onHighlight`)
 
 Xinbot 使用 `AttributedStyle[]` 数组来定义每个参数的颜色和样式。数组的长度必须与 `args` 的长度一致。
 
@@ -147,7 +169,7 @@ public AttributedStyle[] onHighlight(Command cmd, String label, String[] args) {
 
 ---
 
-## 5. Tab 自动补全 (`onTabComplete`)
+## 6. Tab 自动补全 (`onTabComplete`)
 
 返回一个 `List<String>` 建议列表。Xinbot 会根据用户已经输入的字符自动过滤这些建议。
 

@@ -32,7 +32,7 @@ java -version
         "fullSession" : null,           // 由 Xinbot 自动生成；保持为空
         "name" : "[Bot name]",          // 机器人用户名
         "onlineMode" : false,           // true = 使用正版账号登录
-        "password" : ""                 // 2b2t.xin 密码
+        "password" : ""                 // 机器人的服务器登录密码
     },
     "enableTranslation" : true,         // 是否加载语言文件（开启将占用更多内存）
     "reconnectTimeout" : 5000,          // 重连超时时间 (ms)
@@ -68,6 +68,25 @@ java -jar xinbot-[最新版本号].jar /path/to/your/config.conf
 ## 5. 正版登录（可选）
 
 如果你将 `onlineMode` 设置为 `true` 且 `fullSession` 为空，程序启动后控制台会显示一个微软登录链接。你需要打开该链接完成授权，Xinbot 会自动获取并保存 Session。
+
+---
+
+## 6. 语言设置
+
+Xinbot 会根据你的系统环境自动检测语言。如果你需要手动强制指定界面语言，可以在启动时添加 JVM 参数：
+
+```bash
+# 强制使用简体中文
+java -Duser.language=zh -Duser.country=CN -jar xinbot-[版本号].jar
+
+# 强制使用英文
+java -Duser.language=en -Duser.country=US -jar xinbot-[版本号].jar
+```
+
+---
+
+接下来，你可以查看 [使用手册](./usage) 学习如何控制机器人。
+llSession` 为空，程序启动后控制台会显示一个微软登录链接。你需要打开该链接完成授权，Xinbot 会自动获取并保存 Session。
 
 ---
 
