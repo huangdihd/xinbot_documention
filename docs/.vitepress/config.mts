@@ -73,13 +73,15 @@ export default defineConfig({
               items: [
                 { text: '开发总览', link: '/zh/reference/' },
                 { text: '生命周期与依赖', link: '/zh/reference/plugin-lifecycle' },
+                { text: '元插件开发', link: '/zh/reference/meta-plugin' },
                 { text: '事件系统', link: '/zh/reference/event-system' },
                 { text: '命令系统', link: '/zh/reference/command-system' },
                 { text: '数据包处理', link: '/zh/reference/packet-handling' },
                 { text: '语言系统', link: '/zh/reference/lang-system' }
               ]
             }
-          ]        }
+          ]
+        }
       }
     }
   },
@@ -97,8 +99,5 @@ export default defineConfig({
     search: {
       provider: 'local'
     }
-  }
-})
-
   }
 })
