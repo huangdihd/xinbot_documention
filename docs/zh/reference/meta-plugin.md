@@ -83,8 +83,10 @@ type: META_PLUGIN
 
 元插件的主要职责是封装特定 Minecraft 服务器独有的交互逻辑：
 
--   **登录与认证**：注册事件监听器（如 `ReceivePacketEvent`, `PublicChatEvent`）来自动解决服务器独有的验证码（Captcha），或自动执行 `/login <密码>` 指令。
+-   **登录与认证**：注册事件监听器（如 `ReceivePacketEvent`）来自动解决服务器独有的验证码（Captcha），或自动执行 `/login <密码>` 指令。
 -   **队列与自动加入**：如果服务器包含排队系统或大厅，元插件应当监控排队状态，并自动与 NPC 或物品交互以进入主游戏服。
--   **断线处理**：元插件通常负责接管服务器的断线事件，并在必要时触发 Xinbot 的自动重连机制。
+-   **抛出自定义事件**：元插件通常负责将底层的复杂数据包转换为高级别的自定义事件（如 `PositionInQueueUpdateEvent` 或 `AnswerQuestionEvent`），供其他普通插件方便地调用。
+
+*注：服务器断线处理及自动重连（Auto-Reconnect）机制由 Xinbot 核心统一接管，无需在元插件中处理。*
 
 你可以参考官方的 [xinMetaPlugin](https://github.com/huangdihd/xinMetaPlugin) 仓库，了解一个专门为 `2b2t.xin` 服务器设计的元插件的完整实现。

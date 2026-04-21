@@ -40,3 +40,17 @@ public class MyChatListener implements Listener {
 
 当多个插件监听同一事件时，执行顺序由优先级决定。
 例如，一个防脏话插件应该在 `LOWEST` 或 `LOW` 阶段拦截消息，而一个日志插件应该在 `MONITOR` 阶段只读记录。
+
+---
+
+## 4. 元插件 (MetaPlugin) 专属事件
+
+根据你为 Xinbot 实例安装的 `MetaPlugin` 的不同，你可以监听到额外的、由元插件抛出的服务器特定事件。例如，`xinMetaPlugin` (适用于 2b2t.xin) 提供了：
+
+| 元插件事件 | 触发时机 |
+| :--- | :--- |
+| `AnswerQuestionEvent` | 服务器在登录时要求回答验证码问题。 |
+| `PositionInQueueUpdateEvent` | 机器人在队列中的位置发生变化。 |
+| `ClickJoinItemEvent` | 机器人需要点击特定物品才能进入游戏。 |
+
+*注：你可以随时查看所用 MetaPlugin 的源码或文档以了解有哪些可用的自定义事件。*

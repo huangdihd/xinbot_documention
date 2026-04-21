@@ -84,8 +84,10 @@ type: META_PLUGIN
 
 The main purpose of a MetaPlugin is to encapsulate logic that is unique to a specific Minecraft server:
 
--   **Login & Authentication**: Register listeners (e.g., `ReceivePacketEvent`, `PublicChatEvent`) to solve server-specific captchas or execute `/login <password>` commands automatically.
+-   **Login & Authentication**: Register listeners (e.g., `ReceivePacketEvent`) to solve server-specific captchas or execute `/login <password>` commands automatically.
 -   **Queue & Auto-Join**: If the server uses a queue system, the MetaPlugin should monitor queue positions and interact with NPCs or items to join the main game mode.
--   **Disconnection Handling**: The MetaPlugin is responsible for handling server disconnects and triggering Xinbot's auto-reconnect mechanism if necessary.
+-   **Custom Events**: MetaPlugins often provide new, high-level events (like `PositionInQueueUpdateEvent` or `AnswerQuestionEvent`) to abstract away complex packet listening for other plugins.
+
+*Note: Disconnection handling and auto-reconnecting are managed by the Xinbot Core itself, not the MetaPlugin.*
 
 You can refer to the official [xinMetaPlugin](https://github.com/huangdihd/xinMetaPlugin) repository to see a complete implementation of a MetaPlugin designed for the `2b2t.xin` server.

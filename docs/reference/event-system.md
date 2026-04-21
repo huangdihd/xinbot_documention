@@ -41,3 +41,17 @@ public class MyChatListener implements Listener {
 
 Xinbot supports 6 priorities to determine execution order:
 1. `LOWEST` (First) -> 2. `LOW` -> 3. `NORMAL` (Default) -> 4. `HIGH` -> 5. `HIGHEST` -> 6. `MONITOR` (Last, read-only)
+
+---
+
+## 4. MetaPlugin Events
+
+Depending on the `MetaPlugin` installed in your Xinbot instance, you may have access to additional server-specific events. For example, `xinMetaPlugin` (for 2b2t.xin) provides:
+
+| MetaPlugin Event | Triggered When |
+| :--- | :--- |
+| `AnswerQuestionEvent` | The server asks a captcha question during login. |
+| `PositionInQueueUpdateEvent` | The bot's queue position changes. |
+| `ClickJoinItemEvent` | The bot needs to click an item to join the game. |
+
+*Note: Always check your MetaPlugin's documentation or source code for available custom events.*
