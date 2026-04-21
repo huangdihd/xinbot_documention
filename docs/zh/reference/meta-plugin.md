@@ -85,6 +85,7 @@ type: META_PLUGIN
 
 -   **登录与认证**：注册事件监听器（如 `ReceivePacketEvent`）来自动解决服务器独有的验证码（Captcha），或自动执行 `/login <密码>` 指令。
 -   **队列与自动加入**：如果服务器包含排队系统或大厅，元插件应当监控排队状态，并自动与 NPC 或物品交互以进入主游戏服。
+-   **触发核心事件**：元插件负责在判定机器人已完全进入服务器后，手动调用并抛出重要的内置生命周期事件，例如 `LoginSuccessEvent`。
 -   **抛出自定义事件**：元插件通常负责将底层的复杂数据包转换为高级别的自定义事件（如 `PositionInQueueUpdateEvent` 或 `AnswerQuestionEvent`），供其他普通插件方便地调用。
 
 *注：服务器断线处理及自动重连（Auto-Reconnect）机制由 Xinbot 核心统一接管，无需在元插件中处理。*

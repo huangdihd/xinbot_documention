@@ -86,6 +86,7 @@ The main purpose of a MetaPlugin is to encapsulate logic that is unique to a spe
 
 -   **Login & Authentication**: Register listeners (e.g., `ReceivePacketEvent`) to solve server-specific captchas or execute `/login <password>` commands automatically.
 -   **Queue & Auto-Join**: If the server uses a queue system, the MetaPlugin should monitor queue positions and interact with NPCs or items to join the main game mode.
+-   **Core Event Triggering**: The MetaPlugin is responsible for manually calling important built-in lifecycle events, such as `LoginSuccessEvent`, when it determines the bot has fully entered the server.
 -   **Custom Events**: MetaPlugins often provide new, high-level events (like `PositionInQueueUpdateEvent` or `AnswerQuestionEvent`) to abstract away complex packet listening for other plugins.
 
 *Note: Disconnection handling and auto-reconnecting are managed by the Xinbot Core itself, not the MetaPlugin.*
