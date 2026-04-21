@@ -34,6 +34,7 @@ export default defineConfig({
               items: [
                 { text: 'Overview', link: '/reference/' },
                 { text: 'Lifecycle', link: '/reference/plugin-lifecycle' },
+                { text: 'MetaPlugin', link: '/reference/meta-plugin' },
                 { text: 'Event System', link: '/reference/event-system' },
                 { text: 'Command System', link: '/reference/command-system' },
                 { text: 'Packet Handling', link: '/reference/packet-handling' },
@@ -96,5 +97,8 @@ export default defineConfig({
     search: {
       provider: 'local'
     }
+  }
+})
+
   }
 })
