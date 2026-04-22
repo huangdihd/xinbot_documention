@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: "Xinbot"
-  text: "Lightweight, extensible Minecraft bot"
-  tagline: "Built for 2b2t.xin — reliable, readable, and ready to customize"
+  text: "High-performance, decoupled Minecraft bot"
+  tagline: "The next-generation framework for 2b2t.xin — efficient, modular, and developer-friendly"
   image:
     src: /xinbot-logo.jpg
     alt: Xinbot Logo
