@@ -3,12 +3,16 @@
 
 This chapter will guide you through the basic installation, configuration, and first run of Xinbot.
 
-## 1. Download
+## 1. Download Core & MetaPlugin
 
-Get the latest version from GitHub Releases:
-[Xinbot Releases](https://github.com/huangdihd/xinbot/releases)
+Starting from version 2.0.0, Xinbot requires a **MetaPlugin** to handle server-specific interaction logic. A Xinbot instance **must** have exactly one MetaPlugin loaded to run properly.
 
-Download the file named `xinbot-[LATEST_VERSION].jar`.
+1. **Xinbot Core:** Get the latest client from GitHub Releases:
+   [Xinbot Releases](https://github.com/huangdihd/xinbot/releases)
+   Download the file named `xinbot-[LATEST_VERSION].jar`.
+2. **MetaPlugin:** If you are connecting to `2b2t.xin`, download the official MetaPlugin:
+   [xinMetaPlugin Releases](https://github.com/huangdihd/xinMetaPlugin/releases)
+   Place the downloaded MetaPlugin JAR into the `plugin` folder (which you can configure in step 3).
 
 ## 2. Install Java
 
@@ -86,22 +90,4 @@ java -Duser.language=en -Duser.country=US -jar xinbot-[VERSION].jar
 ---
 
 Next, you can check the [Usage Guide](./usage) to learn how to control your bot.
-n link. Open the link to authorize, and Xinbot will handle the session automatically.
 
----
-
-## 6. Language Settings
-
-Xinbot automatically detects your language based on your system environment. If you need to manually force a specific language, you can add JVM parameters at startup:
-
-```bash
-# Force Simplified Chinese
-java -Duser.language=zh -Duser.country=CN -jar xinbot-[VERSION].jar
-
-# Force English
-java -Duser.language=en -Duser.country=US -jar xinbot-[VERSION].jar
-```
-
----
-
-Next, you can check the [Usage Guide](./usage) to learn how to control your bot.

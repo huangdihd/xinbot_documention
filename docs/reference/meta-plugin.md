@@ -1,6 +1,6 @@
 # MetaPlugin Development
 
-Starting from Xinbot 2.0.0, the core framework is decoupled from server-specific logic. A **MetaPlugin** is a special type of plugin required to handle the fundamental interaction logic (such as server connection details, login handshakes, and auto-reconnect logic) for a specific server (e.g., 2b2t.xin).
+Starting from Xinbot 2.0.0, the core framework is decoupled from server-specific logic. A **MetaPlugin** is a special type of plugin required to handle the fundamental interaction logic (such as server connection details, login handshakes, and queue monitoring) for a specific server (e.g., 2b2t.xin).
 
 A Xinbot instance **must** have exactly one MetaPlugin loaded to run properly.
 
@@ -12,6 +12,8 @@ Developing a MetaPlugin is similar to developing a regular plugin, but your main
 package com.example.metaplugin;
 
 import org.geysermc.mcprotocollib.protocol.packet.ingame.clientbound.ClientboundLoginPacket;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import xin.bbtt.mcbot.Server;
 import xin.bbtt.mcbot.plugin.MetaPlugin;
 
@@ -20,14 +22,16 @@ import java.net.SocketAddress;
 
 public class MyMetaPlugin implements MetaPlugin {
 
+    private static final Logger logger = LoggerFactory.getLogger(MyMetaPlugin.class);
+
     @Override
     public void onLoad() {
-        getLogger().info("Loading MyMetaPlugin...");
+        logger.info("Loading MyMetaPlugin...");
     }
 
     @Override
     public void onEnable() {
-        getLogger().info("MyMetaPlugin enabled! Server connection logic initialized.");
+        logger.info("MyMetaPlugin enabled! Server connection logic initialized.");
         // Register your login listeners, captcha handlers, auto-join logic here.
     }
 

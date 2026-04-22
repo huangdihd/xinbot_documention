@@ -1,6 +1,6 @@
 # 元插件 (MetaPlugin) 开发
 
-从 Xinbot 2.0.0 开始，Xinbot 的核心框架与特定服务器的交互逻辑完全解耦。**元插件 (MetaPlugin)** 是一种特殊的插件，专门用于处理连接特定服务器（如 2b2t.xin）所需的基础交互逻辑（包括服务器地址、登录握手、自动重连机制等）。
+从 Xinbot 2.0.0 开始，Xinbot 的核心框架与特定服务器的交互逻辑完全解耦。**元插件 (MetaPlugin)** 是一种特殊的插件，专门用于处理连接特定服务器（如 2b2t.xin）所需的基础交互逻辑（包括服务器地址、登录握手、排队系统等）。
 
 一个 Xinbot 实例**必须**且只能加载一个 MetaPlugin 才能正常运行。
 
@@ -12,6 +12,8 @@
 package com.example.metaplugin;
 
 import org.geysermc.mcprotocollib.protocol.packet.ingame.clientbound.ClientboundLoginPacket;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import xin.bbtt.mcbot.Server;
 import xin.bbtt.mcbot.plugin.MetaPlugin;
 
@@ -20,14 +22,16 @@ import java.net.SocketAddress;
 
 public class MyMetaPlugin implements MetaPlugin {
 
+    private static final Logger logger = LoggerFactory.getLogger(MyMetaPlugin.class);
+
     @Override
     public void onLoad() {
-        getLogger().info("正在加载 MyMetaPlugin...");
+        logger.info("正在加载 MyMetaPlugin...");
     }
 
     @Override
     public void onEnable() {
-        getLogger().info("MyMetaPlugin 已启用！");
+        logger.info("MyMetaPlugin 已启用！");
         // 在此处注册你的登录监听器、验证码处理和自动进入子服逻辑
     }
 

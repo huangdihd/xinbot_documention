@@ -3,12 +3,16 @@
 
 本章节将引导你完成 Xinbot 的基础安装、配置和首次运行。
 
-## 1. 下载
+## 1. 下载核心与元插件
 
-前往 GitHub Releases 获取最新版本的 JAR 文件：
-[Xinbot Releases](https://github.com/huangdihd/xinbot/releases)
+从 2.0.0 版本开始，Xinbot 必须加载一个 **元插件 (MetaPlugin)** 才能正常运行。你需要同时下载机器人核心和适用于目标服务器的元插件，以便处理连接、登录握手等特定的交互逻辑。
 
-下载名为 `xinbot-[最新版本号].jar` 的文件。
+1. **Xinbot 核心：** 前往 GitHub Releases 获取最新版本的核心 JAR 文件：
+   [Xinbot Releases](https://github.com/huangdihd/xinbot/releases)
+   下载名为 `xinbot-[最新版本号].jar` 的文件。
+2. **元插件：** 如果你需要连接 `2b2t.xin`，请获取官方提供的元插件：
+   [xinMetaPlugin Releases](https://github.com/huangdihd/xinMetaPlugin/releases)
+   下载元插件 JAR 并将其放入 `plugin` 文件夹中（将在第 3 步中配置）。
 
 ## 2. 安装 Java 环境
 
@@ -86,22 +90,4 @@ java -Duser.language=en -Duser.country=US -jar xinbot-[版本号].jar
 ---
 
 接下来，你可以查看 [使用手册](./usage) 学习如何控制机器人。
-llSession` 为空，程序启动后控制台会显示一个微软登录链接。你需要打开该链接完成授权，Xinbot 会自动获取并保存 Session。
 
----
-
-## 6. 语言设置
-
-Xinbot 会根据你的系统环境自动检测语言。如果你需要手动强制指定界面语言，可以在启动时添加 JVM 参数：
-
-```bash
-# 强制使用简体中文
-java -Duser.language=zh -Duser.country=CN -jar xinbot-[版本号].jar
-
-# 强制使用英文
-java -Duser.language=en -Duser.country=US -jar xinbot-[版本号].jar
-```
-
----
-
-接下来，你可以查看 [使用手册](./usage) 学习如何控制机器人。

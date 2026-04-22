@@ -7,6 +7,9 @@ This guide provides an overview of Xinbot's core concepts and a complete referen
 ### Bot
 The central client that connects to the Minecraft server. It handles the network session, authentication, and coordinates all other systems.
 
+### MetaPlugin
+A required core plugin that handles server-specific interaction logic (e.g., login handshakes, captchas, and queue monitoring). A bot must have exactly one MetaPlugin to start.
+
 ### Plugin
 Extensible modules that add custom logic to the bot. Xinbot uses a plugin-first architecture, allowing hot-reloading.
 
