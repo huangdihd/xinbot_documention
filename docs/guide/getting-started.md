@@ -10,7 +10,7 @@ Starting from version 2.0.0, Xinbot requires a **MetaPlugin** to handle server-s
 1. **Xinbot Core:** Get the latest client from GitHub Releases:
    [Xinbot Releases](https://github.com/huangdihd/xinbot/releases)
    Download the file named `xinbot-[LATEST_VERSION].jar`.
-2. **MetaPlugin:** If you are connecting to `2b2t.xin`, download the official MetaPlugin:
+2. **MetaPlugin:** Download the MetaPlugin designed for your target server (e.g., 2b2t.xin):
    [xinMetaPlugin Releases](https://github.com/huangdihd/xinMetaPlugin/releases)
    Place the downloaded MetaPlugin JAR into the `plugin` folder (which you can configure in step 3).
 

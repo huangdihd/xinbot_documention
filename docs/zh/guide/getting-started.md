@@ -10,7 +10,7 @@
 1. **Xinbot 核心：** 前往 GitHub Releases 获取最新版本的核心 JAR 文件：
    [Xinbot Releases](https://github.com/huangdihd/xinbot/releases)
    下载名为 `xinbot-[最新版本号].jar` 的文件。
-2. **元插件：** 如果你需要连接 `2b2t.xin`，请获取官方提供的元插件：
+2. **元插件：** 获取适配您目标服务器（如 `2b2t.xin`）的元插件：
    [xinMetaPlugin Releases](https://github.com/huangdihd/xinMetaPlugin/releases)
    下载元插件 JAR 并将其放入 `plugin` 文件夹中（将在第 3 步中配置）。
 

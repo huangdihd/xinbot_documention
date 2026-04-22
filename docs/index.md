@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Xinbot"
   text: "High-performance, decoupled Minecraft bot"
-  tagline: "The next-generation framework for 2b2t.xin — efficient, modular, and developer-friendly"
+  tagline: "The next-generation framework for Anarchy Servers — efficient, modular, and developer-friendly"
   image:
     src: /xinbot-logo.jpg
     alt: Xinbot Logo

@@ -1,6 +1,6 @@
 # MetaPlugin Development
 
-Starting from Xinbot 2.0.0, the core framework is decoupled from server-specific logic. A **MetaPlugin** is a special type of plugin required to handle the fundamental interaction logic (such as server connection details, login handshakes, and queue monitoring) for a specific server (e.g., 2b2t.xin).
+Starting from Xinbot 2.0.0, the core framework is decoupled from server-specific logic. A **MetaPlugin** is a special type of plugin required to handle the fundamental interaction logic (such as server connection details, login handshakes, and queue monitoring) for a specific server (e.g., 2b2t.org or 2b2t.xin).
 
 A Xinbot instance **must** have exactly one MetaPlugin loaded to run properly.
 

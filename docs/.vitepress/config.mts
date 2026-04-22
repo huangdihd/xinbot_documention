@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   title: "Xinbot",
-  description: "A lightweight, extensible Minecraft bot client built for 2b2t.xin",
+  description: "A lightweight, extensible Minecraft bot client built for Anarchy Servers",
   head: [['link', { rel: 'icon', href: '/xinbot-logo.jpg' }]],
   
   // Multi-language configuration
