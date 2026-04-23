@@ -28,7 +28,7 @@ Create language files in your plugin's resources under the `lang` directory (`sr
 
 ### File Format (.lang)
 Use the `key=value` format. Comments starting with `#` are supported. You can also use `\n` for newlines and `\t` for tabs within your values:
-```lang
+```properties
 # This is a comment
 myplugin.welcome=Welcome to my plugin!
 myplugin.hello=Hello, %s!

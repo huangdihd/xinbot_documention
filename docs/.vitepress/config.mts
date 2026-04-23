@@ -32,13 +32,32 @@ export default defineConfig({
             {
               text: 'Plugin Development',
               items: [
-                { text: 'Overview', link: '/reference/' },
+                { text: 'Overview', link: '/reference/' }
+              ]
+            },
+            {
+              text: 'Tutorial: Owner PM Bot',
+              items: [
+                { text: '1. Setup Project', link: '/reference/tutorial/setup' },
+                { text: '2. Plugin Main Class', link: '/reference/tutorial/plugin' },
+                { text: '3. Event Listener', link: '/reference/tutorial/listener' }
+              ]
+            },
+            {
+              text: 'Advanced APIs',
+              items: [
                 { text: 'Lifecycle', link: '/reference/plugin-lifecycle' },
                 { text: 'MetaPlugin', link: '/reference/meta-plugin' },
                 { text: 'Event System', link: '/reference/event-system' },
                 { text: 'Command System', link: '/reference/command-system' },
                 { text: 'Packet Handling', link: '/reference/packet-handling' },
                 { text: 'Language System', link: '/reference/lang-system' }
+              ]
+            },
+            {
+              text: 'Migration',
+              items: [
+                { text: 'Migration Guide (v1 to v2)', link: '/reference/migration-v2' }
               ]
             }
           ]
@@ -69,15 +88,34 @@ export default defineConfig({
           ],
           '/zh/reference/': [
             {
-              text: '插件开发参考',
+              text: '插件开发入门',
               items: [
-                { text: '开发总览', link: '/zh/reference/' },
+                { text: '开发总览', link: '/zh/reference/' }
+              ]
+            },
+            {
+              text: '教程: 主人私聊机器人',
+              items: [
+                { text: '1. 项目设置', link: '/zh/reference/tutorial/setup' },
+                { text: '2. 插件主类', link: '/zh/reference/tutorial/plugin' },
+                { text: '3. 事件监听器', link: '/zh/reference/tutorial/listener' }
+              ]
+            },
+            {
+              text: '进阶 API',
+              items: [
                 { text: '生命周期与依赖', link: '/zh/reference/plugin-lifecycle' },
                 { text: '元插件开发', link: '/zh/reference/meta-plugin' },
                 { text: '事件系统', link: '/zh/reference/event-system' },
                 { text: '命令系统', link: '/zh/reference/command-system' },
                 { text: '数据包处理', link: '/zh/reference/packet-handling' },
                 { text: '语言系统', link: '/zh/reference/lang-system' }
+              ]
+            },
+            {
+              text: '版本迁移',
+              items: [
+                { text: '迁移指南 (v1 到 v2)', link: '/zh/reference/migration-v2' }
               ]
             }
           ]
