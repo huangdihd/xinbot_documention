@@ -2,6 +2,9 @@
 
 Welcome to the Xinbot Plugin Development Manual. Xinbot features a highly decoupled, plugin-based architecture that allows developers to extend almost every functionality of the bot using simple Java code.
 
+### 📖 Getting Started
+- **[Tutorial: Owner PM Bot](./tutorial/setup)**: A step-by-step guide to building your first plugin that listens to private messages and executes internal bot commands.
+
 ### 🚀 Core Documentation
 - **[Plugin Lifecycle](./plugin-lifecycle)**: Setup your project and master lifecycle hooks like `onEnable`.
 - **[MetaPlugin Development](./meta-plugin)**: Learn how to write server-specific core interaction plugins.
