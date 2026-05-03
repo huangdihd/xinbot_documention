@@ -80,6 +80,8 @@ public class MyPlugin implements Plugin {
 
 Xinbot 现已使用 `plugin.yml` 文件来发现插件并管理依赖。请在资源目录下创建该文件 (`src/main/resources/plugin.yml`)：
 
+> 💡 **提示：** 你可以使用我们的 [plugin.yml 生成器](./plugin-yml-generator) 工具来快速生成此文件。
+
 ```yaml
 name: MyPlugin
 main: com.example.plugin.MyPlugin

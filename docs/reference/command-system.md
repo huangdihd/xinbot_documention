@@ -54,6 +54,8 @@ public class HelloExecutor extends TabHighlightExecutor {
 
 Starting from Xinbot 2.0.0, commands are registered declaratively using the `src/main/resources/commands.yml` file in your plugin. Xinbot will automatically parse this file upon loading the plugin, instantiate the executors, and bind them as commands.
 
+> 💡 **Tip:** You can use our [commands.yml Generator](./commands-yml-generator) to quickly create these configuration entries.
+
 ### `commands.yml` Example
 ```yaml
 hello:

@@ -54,6 +54,8 @@ public class HelloExecutor extends TabHighlightExecutor {
 
 从 Xinbot 2.0.0 开始，命令采用声明式的方式通过插件的 `src/main/resources/commands.yml` 文件进行注册。Xinbot 会在加载插件时自动解析该文件、实例化执行器，并将它们绑定为命令。
 
+> 💡 **提示：** 你可以使用我们的 [commands.yml 生成器](./commands-yml-generator) 工具来快速生成这些配置内容。
+
 ### `commands.yml` 示例
 ```yaml
 hello:

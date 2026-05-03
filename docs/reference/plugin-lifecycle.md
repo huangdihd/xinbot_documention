@@ -78,6 +78,8 @@ public class MyPlugin implements Plugin {
 
 Xinbot uses a `plugin.yml` file to discover plugins and manage their dependencies. Create a `plugin.yml` file in your resources folder (`src/main/resources/plugin.yml`):
 
+> 💡 **Tip:** You can use our [plugin.yml Generator](./plugin-yml-generator) to quickly create this file.
+
 ```yaml
 name: MyPlugin
 main: com.example.plugin.MyPlugin
