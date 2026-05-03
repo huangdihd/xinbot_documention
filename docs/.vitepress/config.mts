@@ -55,6 +55,13 @@ export default defineConfig({
               ]
             },
             {
+              text: 'Tools',
+              items: [
+                { text: 'plugin.yml Generator', link: '/reference/plugin-yml-generator' },
+                { text: 'commands.yml Generator', link: '/reference/commands-yml-generator' }
+              ]
+            },
+            {
               text: 'Migration',
               items: [
                 { text: 'Migration Guide (v1 to v2)', link: '/reference/migration-v2' }
@@ -110,6 +117,13 @@ export default defineConfig({
                 { text: '命令系统', link: '/zh/reference/command-system' },
                 { text: '数据包处理', link: '/zh/reference/packet-handling' },
                 { text: '语言系统', link: '/zh/reference/lang-system' }
+              ]
+            },
+            {
+              text: '工具',
+              items: [
+                { text: 'plugin.yml 生成器', link: '/zh/reference/plugin-yml-generator' },
+                { text: 'commands.yml 生成器', link: '/zh/reference/commands-yml-generator' }
               ]
             },
             {

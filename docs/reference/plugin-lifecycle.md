@@ -40,24 +40,29 @@ public class MyPlugin implements Plugin {
     @Override
     public void onLoad() {
         // Triggered when the plugin file is identified and loaded into memory.
+        // Best for: Loading configurations, initializing variables, or setting up early dependencies.
+        // Note: The bot is not fully connected to the server yet.
         // Use getLogger() to get a SLF4J logger with your plugin's prefix.
         getLogger().info("Plugin is loading...");
     }
 
     @Override
     public void onEnable() {
-        // Plugin is officially started. Register listeners and commands here.
+        // Plugin is officially started and the bot is preparing to connect or is already connected.
+        // Best for: Registering EventListeners, Commands, and starting background tasks.
         getLogger().info("Plugin enabled!");
     }
 
     @Override
     public void onDisable() {
         // Triggered before the plugin is disabled or the bot stops.
+        // Best for: Saving data, unregistering listeners, canceling running tasks, and closing database connections.
     }
 
     @Override
     public void onUnload() {
-        // Triggered when the plugin is completely unloaded.
+        // Triggered when the plugin is completely unloaded from memory.
+        // Best for: Final garbage collection and ultimate cleanup. Rarely needed for simple plugins.
     }
 }
 ```

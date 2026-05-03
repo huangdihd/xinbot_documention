@@ -42,24 +42,29 @@ public class MyPlugin implements Plugin {
     @Override
     public void onLoad() {
         // 插件文件被识别并载入内存时触发
+        // 适用场景：加载配置文件、初始化变量、或者设置早期依赖。
+        // 注意：此时 Bot 可能还未完全连接到服务器。
         // 你可以通过 getLogger() 获取属于该插件的日志对象
         getLogger().info("插件正在载入...");
     }
 
     @Override
     public void onEnable() {
-        // 插件正式启动。绝大多数监听器、命令应在此处注册
+        // 插件正式启动，Bot 准备连接或已经连接服务器。
+        // 适用场景：注册事件监听器（Listener）、注册命令（Command）、以及启动后台定时任务。
         getLogger().info("插件已启动！");
     }
 
     @Override
     public void onDisable() {
-        // 插件被禁用或 Bot 停止前触发。用于保存数据或清理资源
+        // 插件被禁用或 Bot 停止前触发。
+        // 适用场景：保存重要数据、注销监听器、取消正在运行的任务、关闭数据库连接等资源清理工作。
     }
 
     @Override
     public void onUnload() {
-        // 插件被彻底卸载时触发
+        // 插件被彻底从内存中卸载时触发。
+        // 适用场景：最终的垃圾回收和极限清理。一般简单插件不需要重写此方法。
     }
 }
 ```
