@@ -50,7 +50,29 @@ public class HelloExecutor extends TabHighlightExecutor {
 
 ---
 
-## 3. The Sub-Command System (`SubCommandExecutor`)
+## 3. Registering Commands (`commands.yml`)
+
+Starting from Xinbot 2.0.0, commands are registered declaratively using the `src/main/resources/commands.yml` file in your plugin. Xinbot will automatically parse this file upon loading the plugin, instantiate the executors, and bind them as commands.
+
+### `commands.yml` Example
+```yaml
+hello:
+  description: "Say hello to the world"
+  usage: "hello [name]"
+  aliases: ["hi", "greet"]
+  executor: "com.example.plugin.HelloExecutor"
+```
+
+### Supported Properties
+*   `[command_name]` (e.g., `hello`): The name the user types in the console (e.g., `/hello`).
+*   **`executor`**: (Required) The fully qualified name of the `CommandExecutor` implementation class. This class must have a public no-argument constructor.
+*   **`description`**: (Optional) A brief description of the command's functionality, displayed in `/help`. Supports i18n keys from `.lang` files.
+*   **`usage`**: (Optional) Explains how to use the command (e.g., `hello <name>`). Supports i18n keys.
+*   **`aliases`**: (Optional) A list of aliases for the command (e.g., `["hi", "greet"]`). If there is only one alias, it can also be written directly as a string.
+
+---
+
+## 4. The Sub-Command System (`SubCommandExecutor`)
 
 `SubCommandExecutor` is a specialized class designed to manage commands that have multiple sub-actions (e.g., `/mycmd add`, `/mycmd remove`). It automatically handles routing, tab completion for sub-command names, and basic highlighting.
 
