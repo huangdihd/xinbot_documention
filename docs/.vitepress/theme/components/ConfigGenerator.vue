@@ -20,6 +20,7 @@ const t = computed(() => {
     enableTranslation: isZh ? '启用翻译' : 'Enable Translation',
     reconnectTimeout: isZh ? '重连超时 (ms)' : 'Reconnect Timeout (ms)',
     reconnectDelay: isZh ? '重连延迟 (ms)' : 'Reconnect Delay (ms)',
+    checkForUpdates: isZh ? '启动时检查更新' : 'Check for Updates on Startup',
     plugin: isZh ? '2. 插件设置' : '2. Plugin Settings',
     pluginDir: isZh ? '插件目录' : 'Plugin Directory',
     pluginDirPlaceholder: prefix + 'plugin',
@@ -46,6 +47,7 @@ const config = reactive({
   enableTranslation: true, // 默认开启
   reconnectTimeout: 5000,
   reconnectDelay: 3000,
+  checkForUpdates: true,
   plugin: {
     directory: 'plugin'
   },
@@ -82,6 +84,7 @@ const previewConfig = computed(() => {
     "reconnectTimeout" : ${config.reconnectTimeout},
     "reconnectDelay" : ${config.reconnectDelay},
     "owner" : "${config.owner}",
+    "checkForUpdates" : ${config.checkForUpdates},
     "plugin" : {
         "directory" : "${config.plugin.directory}"
     },
@@ -110,6 +113,7 @@ const realConfig = computed(() => {
     "reconnectTimeout" : ${config.reconnectTimeout},
     "reconnectDelay" : ${config.reconnectDelay},
     "owner" : "${config.owner}",
+    "checkForUpdates" : ${config.checkForUpdates},
     "plugin" : {
         "directory" : "${config.plugin.directory}"
     },
@@ -165,6 +169,10 @@ const copyToClipboard = () => {
       <div class="field">
         <label>{{ t.reconnectDelay }}</label>
         <input v-model.number="config.reconnectDelay" type="number" step="1000" min="0" />
+      </div>
+      <div class="field checkbox">
+        <input v-model="config.checkForUpdates" type="checkbox" id="checkForUpdates" />
+        <label for="checkForUpdates">{{ t.checkForUpdates }}</label>
       </div>
 
       <h3>{{ t.plugin }}</h3>

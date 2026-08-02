@@ -53,6 +53,7 @@ Don't want to write HOCON manually? Use our [**Configuration Generator**](./conf
     "reconnectTimeout" : 5000,          // Reconnection timeout (ms)
     "reconnectDelay" : 3000,            // Reconnection delay (ms)
     "owner" : "[Owner name]",           // Bot owner's name
+    "checkForUpdates" : true,            // Check for updates when Xinbot starts
     "plugin" : {
         "directory" : "plugin"          // Plugin directory
     },

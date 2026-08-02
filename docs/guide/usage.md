@@ -93,7 +93,17 @@ java -jar xinbot.jar --help                     # list all sub-commands
 
 Installing overwrites existing files of the same name (with a warning) and ignores any archive entry outside `plugins/` and `lang/`. The plugin directory is read from `config.conf` when present, otherwise the default `plugin/` is used.
 
-## 5. Quick Tips
+## 5. Update Checks *(since 2.4.0)*
+
+Xinbot checks the latest release information at startup and logs a link when a newer version is available. The check uses `https://xinbot.shouldbe.top/data/version.json` and does not download or install updates automatically.
+
+To disable the check, set the following option in `config.conf`:
+
+```hocon
+checkForUpdates = false
+```
+
+## 6. Quick Tips
 
 - **Owner Configuration**: Ensure the `owner` field in `config.conf` matches your Minecraft username.
 - **Auto-slash**: The console handles the `/` prefix automatically when using `cmd`.

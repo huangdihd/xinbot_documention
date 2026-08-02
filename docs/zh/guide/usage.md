@@ -93,7 +93,17 @@ java -jar xinbot.jar --help                     # 列出所有子命令
 
 安装时会覆盖同名的已有文件（并输出警告），并忽略 `plugins/` 和 `lang/` 以外的任何压缩包条目。插件目录优先从 `config.conf` 中读取，否则使用默认的 `plugin/`。
 
-## 5. 使用技巧
+## 5. 更新检查（自 2.4.0）
+
+Xinbot 启动时会检查最新版本信息。如果发现有新版本，控制台会输出版本号和发布页面链接。检查使用 `https://xinbot.shouldbe.top/data/version.json`，不会自动下载或安装更新。
+
+如需关闭检查，请在 `config.conf` 中设置：
+
+```hocon
+checkForUpdates = false
+```
+
+## 6. 使用技巧
 
 - **管理员设置**: 确保 `config.conf` 中的 `owner` 字段正确设置。
 - **自动处理**: 使用 `cmd` 发送指令时，无需手动输入开头的 `/`。

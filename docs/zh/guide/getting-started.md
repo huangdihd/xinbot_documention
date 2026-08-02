@@ -53,6 +53,7 @@ java -version
     "reconnectTimeout" : 5000,          // 重连超时时间 (ms)
     "reconnectDelay" : 3000,            // 重连延迟 (ms)
     "owner" : "[主人名称]",             // 机器人的主人名称
+    "checkForUpdates" : true,           // 启动时检查更新
     "plugin" : {
         "directory" : "plugin"          // 插件目录
     },
