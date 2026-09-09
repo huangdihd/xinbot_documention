@@ -135,5 +135,13 @@
     "owner": "huangdihd",
     "url": "https://github.com/huangdihd/CnOrgMetaPlugin",
     "desc": "A MetaPlugin that makes Xinbot work out of the box on the 2b2t-cn.org anarchy server: automatic register/login via LoginFlow, cross-version bridging through XinVia (core protocol → 1.21.4), play-phase ping/pong keep-alive to avoid the ~60s \"连接超时\" kick, auto respawn, and lobby auto-join. Implements the full documented event surface (public/private chat, login/register success, queue position, and cancellable join/respawn events). Verified live on the real game server with two clients in the same survival world. "
+  },
+  {
+    "name": "XinPlayerMonitor",
+    "type": "PLUGIN",
+    "servers": "",
+    "owner": "WaltomAdaam2",
+    "url": "https://github.com/WaltomAdaam2/XinPlayerMonitor",
+    "desc": "XinPlayerMonitor is a player data recording plugin built on XinBot for 2b2t.xin. After the bot enters the Game state, the plugin records player logins, logouts, public chat messages, UUIDs, and Stat data, and continuously stores the data in SQLite. More information can be found in the README. "
   }
 ]
