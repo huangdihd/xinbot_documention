@@ -143,5 +143,13 @@
     "owner": "WaltomAdaam2",
     "url": "https://github.com/WaltomAdaam2/XinPlayerMonitor",
     "desc": "XinPlayerMonitor is a player data recording plugin built on XinBot for 2b2t.xin. After the bot enters the Game state, the plugin records player logins, logouts, public chat messages, UUIDs, and Stat data, and continuously stores the data in SQLite. More information can be found in the README. "
+  },
+  {
+    "name": "Xinbot_InfoManage",
+    "type": "PLUGIN",
+    "servers": "",
+    "owner": "YunXiaobo",
+    "url": "https://github.com/YunXiaobo/Xinbot_InfoManage",
+    "desc": "为Xinbot打造的类似3c3u.info的插件，能够查询服务器状态、玩家信息等。支持多种服务器监控。 "
   }
 ]
