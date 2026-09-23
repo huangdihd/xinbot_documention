@@ -3,6 +3,16 @@
 
 本章节将引导你完成 Xinbot 的基础安装、配置和首次运行。
 
+::: tip 🪟 Windows 图形界面（社区维护）
+希望使用图形化方式安装和管理 Xinbot 的 Windows 10/11 用户，可以使用
+[XinBot Windows](https://github.com/newPlayerAL/xinbot-gui-win)。它支持多个机器人配置并行运行、
+分别管理每个配置的插件和配置文件，并会在首次启动时下载隔离的 Java 21 运行环境。
+[下载最新版本](https://github.com/newPlayerAL/xinbot-gui-win/releases/latest)。
+
+该项目由社区独立维护，与 Xinbot Core 分开发行。0.2.8 内置与 GUI 配套的 Xinbot Core
+2.4.3；需要使用最新 Core 版本的用户，请继续按照下方步骤手动安装。
+:::
+
 ## 1. 下载核心与元插件
 
 从 2.0.0 版本开始，Xinbot 必须加载一个 **元插件 (MetaPlugin)** 才能正常运行。你需要同时下载机器人核心和适用于目标服务器的元插件，以便处理连接、登录握手等特定的交互逻辑。
