@@ -3,6 +3,17 @@
 
 This chapter will guide you through the basic installation, configuration, and first run of Xinbot.
 
+::: tip 🪟 Windows desktop app (community maintained)
+Windows 10/11 users who prefer a graphical setup can use
+[XinBot Windows](https://github.com/newPlayerAL/xinbot-gui-win). It can run multiple bot profiles
+concurrently, manage plugins and configuration per profile, and download an isolated Java 21 runtime
+on first launch. [Download the latest release](https://github.com/newPlayerAL/xinbot-gui-win/releases/latest).
+
+This project is maintained by the community and released independently from Xinbot Core. Version
+0.2.8 bundles a Xinbot Core 2.4.3 build matched to the GUI. To use the latest Core release, follow
+the manual installation steps below.
+:::
+
 ## 1. Download Core & MetaPlugin
 
 Starting from version 2.0.0, Xinbot requires a **MetaPlugin** to handle server-specific interaction logic. A Xinbot instance **must** have exactly one MetaPlugin loaded to run properly.
