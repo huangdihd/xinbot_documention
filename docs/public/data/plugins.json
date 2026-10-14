@@ -151,5 +151,13 @@
     "owner": "YunXiaobo",
     "url": "https://github.com/YunXiaobo/Xinbot_InfoManage",
     "desc": "为Xinbot打造的类似3c3u.info的插件，能够查询服务器状态、玩家信息等。支持多种服务器监控。 "
+  },
+  {
+    "name": "XinConnect",
+    "type": "META_PLUGIN",
+    "servers": "all（根据配置决定）",
+    "owner": "2698269088",
+    "url": "https://github.com/2698269088/XinConnect/",
+    "desc": "此插件为LanConnect的替代品，基于规则链（RuleChain）系统运行。通过编写不同的规则和动作，来适配不同的服务器和登录流程 "
   }
 ]
