@@ -159,5 +159,13 @@
     "owner": "2698269088",
     "url": "https://github.com/2698269088/XinConnect/",
     "desc": "此插件为LanConnect的替代品，基于规则链（RuleChain）系统运行。通过编写不同的规则和动作，来适配不同的服务器和登录流程 "
+  },
+  {
+    "name": "Running",
+    "type": "PLUGIN",
+    "servers": "",
+    "owner": "2698269088",
+    "url": "https://github.com/2698269088/Running",
+    "desc": "为Xinbot添加高级移动功能，例如自动跑图，鞘翅飞行，自动挖矿等 "
   }
 ]
