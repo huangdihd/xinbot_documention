@@ -151,5 +151,13 @@
     "owner": "YunXiaobo",
     "url": "https://github.com/YunXiaobo/Xinbot_InfoManage",
     "desc": "为Xinbot打造的类似3c3u.info的插件，能够查询服务器状态、玩家信息等。支持多种服务器监控。 "
+  },
+  {
+    "name": "Running",
+    "type": "PLUGIN",
+    "servers": "",
+    "owner": "2698269088",
+    "url": "https://github.com/2698269088/Running",
+    "desc": "为Xinbot添加高级移动功能，例如自动跑图，鞘翅飞行，自动挖矿等 "
   }
 ]
